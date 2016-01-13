@@ -56,7 +56,52 @@ class Game():
             new_player_name = input('What is your name, player ' + str(players + 1) + '? ')
             new_player = Player(new_player_name)
             self.players.append(new_player)
-
+    def get_dice(self, num):
+        for die in range(0, num):
+            # select a random die from dice_cup
+            current_die = self.dice_cup[randint(0, len(self.dice_cup)-1)]
+            # put selected die into dice_in_hand
+            self.dice_in_hand.append(current_die)
+            # remove selected from dice_cup
+            self.dice_cup.remove(current_die)
+    def roll_dice(self):
+        for die in self.dice_in_hand:
+            die.roll()
+            self.dice_on_table.append(die)
+            self.dice_in_hand.remove(die)
+    def player_choice(self):
+        while True:
+            try:
+                player_move = input('Would you like to roll again? Y/N ')
+                if player_move.lower() == 'y':
+                    return True
+                elif player_move.lower() == 'n':
+                    return False
+                else:
+                    raise ValueError()
+            except:
+                print('Please enter Y/N')
+    def eval_dice(self):
+        blasts = 0
+        brains = 0
+        feet = 0
+        # how many feet, brains, and blasts?
+        for i in dice_on_table:
+            if dice_on_table[i].current_side == 'shotgun':
+                blasts += 1
+            elif dice_on_table[i].current_side == 'brain':
+                brains += 1
+            else:
+                feet += 1
+        # are there 3 blasts?
+        if blasts == 3:
+            print('You are dead...er.')
+            # call next_player
+        
+        # move feet back to dice_in_hand
+        # call display_dice
+        # create player_choice variable
+        print(dice_on_table)
 
 
 
