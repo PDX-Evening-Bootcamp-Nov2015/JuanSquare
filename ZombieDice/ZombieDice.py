@@ -1,4 +1,4 @@
-from random import randint
+from random import random.randint
 
 # Die class
 class Die():
@@ -12,7 +12,7 @@ class Die():
         }
         self.sides = self.possible_sides[color]
     def roll(self):
-        self.current_side = self.sides[randint(0,len(self.sides)) - 1]
+        self.current_side = self.sides[random.randint(0,len(self.sides)) - 1]
 
 
 # Player class
@@ -59,7 +59,7 @@ class Game():
     def get_dice(self, num):
         for die in range(0, num):
             # select a random die from dice_cup
-            current_die = self.dice_cup[randint(0, len(self.dice_cup)-1)]
+            current_die = self.dice_cup[random.randint(1, len(self.dice_cup)) - 1]
             # put selected die into dice_in_hand
             self.dice_in_hand.append(current_die)
             # remove selected from dice_cup
@@ -86,21 +86,24 @@ class Game():
         brains = 0
         feet = 0
         # how many feet, brains, and blasts?
-        for i in dice_on_table:
-            if dice_on_table[i].current_side == 'shotgun':
+        for i in self.dice_on_table:
+            current = self.dice_on_table[i]
+            if current.current_side == 'shotgun':
                 blasts += 1
-            elif dice_on_table[i].current_side == 'brain':
+            elif current.current_side == 'brain':
                 brains += 1
             else:
                 feet += 1
+                # move feet back to dice_in_hand
+                self.dice_in_hand.append(self.dice_on_table[i])
+                self.dice_on_table.remove(current)
         # are there 3 blasts?
         if blasts == 3:
             print('You are dead...er.')
             # call next_player
-        
-        # move feet back to dice_in_hand
         # call display_dice
         # create player_choice variable
+        player_continue = player_choice()
         print(dice_on_table)
 
 
