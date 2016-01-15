@@ -133,7 +133,7 @@ class Game():
             # call end_turn
         # call display_dice
         # create player_choice variable
-        player_continue = player_choice()
+        player_continue = self.player_choice()
         print(dice_on_table)
         if player_continue:
             # roll again
