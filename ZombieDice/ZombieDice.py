@@ -99,10 +99,10 @@ class Game():
                 if player_ready.lower() != 'y':
                     raise ValueError()
                 else:
-                    self.get_dice(3)
-                    return
+                    break
             except:
                 print("Please enter the letter 'Y' when you are ready.")
+        self.get_dice(3)
 
     def cup_empty(self):
         for die in dice_in_hand:
