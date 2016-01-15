@@ -56,10 +56,16 @@ class Game():
         self.phantom_brains = 0
         # game-progression functions look for last_round to decide on continuing
         self.last_round = False
+        self.image_map = {
+            'brain': '[ B ]',
+            'feet': '[ F ]',
+            'shotgun': '[ S ]'
+        }
         # fill the dice_cup with the appropriate mix of die objects
         for color in self.start_dice:
                 new_die = Die(color)
                 self.dice_cup.append(new_die)
+
     def new_game_setup(self):
         while True:
             try:
@@ -77,10 +83,36 @@ class Game():
             new_player = Player(new_player_name)
             # add that player to our players list
             self.players.append(new_player)
+        print('Lets get ready to ambllllllllle...')
+        self.current_player = self.players[0]
+        self.player_start_turn()
+
+    def player_start_turn(self):
+        while True:
+            try:
+                player_ready = input(self.current_player.name + \
+                ", it's your turn, enter 'Y' to roll: ")
+                if player_ready.lower() != 'y':
+                    raise ValueError()
+                else:
+                    self.get_dice(3)
+                    return
+            except:
+                print("Please enter the letter 'Y' when you are ready.")
+
+    def cup_empty(self):
+        for die in dice_in_hand:
+            self.dice_cup.append(die)
+            self.dice_in_hand.remove(die)
+        for die in dice_on_table:
+            if die.current_side != 'shotgun':
+                self.dice_cup.append(die)
+                self.dice_on_table.remove(die)
+
     def get_dice(self, num):
         # check to make sure there are enough dice left in the cup
         if len(self.dice_cup) < num:
-            # call cup_empty
+            self.cup_empty()
         for die in range(0, num):
             # select a random die from dice_cup
             current_die = self.dice_cup[random.randint(1, len(self.dice_cup)) - 1]
@@ -89,14 +121,18 @@ class Game():
             # remove selected from dice_cup
             self.dice_cup.remove(current_die)
         self.roll_dice()
+
     def roll_dice(self):
         for die in self.dice_in_hand:
             # get a new random side for each die in hand
             die.roll()
+            print(self.current_player.name, 'rolled a', die.color, \
+            self.image_map[die.current_side] + '.')
             # move all dice from the hand to the table
             self.dice_on_table.append(die)
             self.dice_in_hand.remove(die)
         self.eval_dice()
+
     def player_choice(self):
         while True:
             try:
@@ -109,6 +145,7 @@ class Game():
                     raise ValueError()
             except:
                 print('Please enter Y/N')
+
     def count_dice(self):
         # temp vars to hold current dice values
         blasts = 0
@@ -127,6 +164,7 @@ class Game():
                 self.dice_in_hand.append(self.dice_on_table[i])
                 self.dice_on_table.remove(current)
         return blasts, brains, feet
+
     def eval_dice(self):
         blasts, brains, feet = count_dice()
         # are there 3 blasts?
@@ -146,17 +184,11 @@ class Game():
             if current_player.win_cond:
                 self.last_round = True
             self.end_turn()
+
     def end_turn(self):
         if self.last_round:
             if index(current_player) == len(self.players) - 1:
-                print('Game Over')
-                winner = ""
-                highest = 0
-                for player in self.players:
-                    if player.brains > highest:
-                        highest = player.brains
-                        winner = player
-                print('You win, ' + winner.name)
+                self.final_score()
                 return
         for dice in dice_in_hand:
             self.dice_cup.append(dice)
@@ -165,6 +197,7 @@ class Game():
             self.dice_cup.append(dice)
             self.dice_on_table.remove(dice)
         self.next_player()
+
     def next_player(self):
         # change current player
         if index(current_player) == len(self.players) - 1:
@@ -172,17 +205,26 @@ class Game():
         else:
             next_index = index(current_player) + 1
         self.current_player = self.players[next_index]
-        self.get_dice(3)
+        self.player_start_turn()
+
     def display_dice(self):
-        image_map = {
-            'brain': '[ B ]',
-            'feet': '[ F ]',
-            'shotgun': '[ S ]'
-        }
         display = ''
         for i in dice_on_table:
-            display += image_map[i.current_side]
+            display += self.image_map[i.current_side]
         print('Dice on la mesa: \n' + display)
+
+    def final_score(self):
+        print('Game Over')
+        winner = ""
+        highest = 0
+        for player in self.players:
+            print (player.name, 'scored:', player.brains, 'brains.')
+            if player.brains > highest:
+                highest = player.brains
+                winner = player
+        print('You win, ' + winner.name)
+
+
 
 
 
@@ -190,11 +232,14 @@ class Game():
 
 
 # Instantiate Them Classes
+new_game = Game()
+new_game.new_game_setup()
 
-# Do stuff
-redDie1 = Die('red')
-print(redDie1.sides)
-redDie1.roll()
-print(redDie1.current_side)
-newGame = Game()
-print(newGame.dice_cup[0].color)
+
+# Testing
+# redDie1 = Die('red')
+# print(redDie1.sides)
+# redDie1.roll()
+# print(redDie1.current_side)
+# newGame = Game()
+# print(newGame.dice_cup[0].color)
