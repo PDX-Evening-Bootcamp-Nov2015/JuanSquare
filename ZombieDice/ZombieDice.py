@@ -105,25 +105,33 @@ class Game():
         self.get_dice(3)
 
     def cup_empty(self):
-        for die in dice_in_hand:
-            self.dice_cup.append(die)
-            self.dice_in_hand.remove(die)
-        for die in dice_on_table:
-            if die.current_side != 'shotgun':
-                self.dice_cup.append(die)
-                self.dice_on_table.remove(die)
+        temp_dice_hand = self.dice_in_hand[:]
+        for dice in self.dice_in_hand:
+            self.dice_cup.append(dice)
+            temp_dice_hand.remove(dice)
+        self.dice_in_hand = temp_dice_hand[:]
+        temp_dice_table = self.dice_on_table[:]
+        for dice in dice_on_table:
+            if dice.current_side != 'shotgun':
+                self.dice_cup.append(dice)
+                temp_dice_table.remove(dice)
+        self.dice_on_table = temp_dice_table[:]
 
     def get_dice(self, num):
         # check to make sure there are enough dice left in the cup
         if len(self.dice_cup) < num:
             self.cup_empty()
-        for die in range(0, num):
+        temp_dice_cup = self.dice_cup[:]
+        for i in range(0, num):
+            print('Getting die', i + 1, 'from the cup.') # debugging print
             # select a random die from dice_cup
             current_die = self.dice_cup[randint(1, len(self.dice_cup)) - 1]
             # put selected die into dice_in_hand
             self.dice_in_hand.append(current_die)
             # remove selected from dice_cup
-            self.dice_cup.remove(current_die)
+            temp_dice_cup.remove(current_die)
+        self.dice_cup = temp_dice_cup[:]
+        print (len(self.dice_in_hand), 'dice in hand.')
         self.roll_dice()
 
     def roll_dice(self):
@@ -134,7 +142,7 @@ class Game():
             self.image_map[die.current_side] + '.')
             # move all dice from the hand to the table
             self.dice_on_table.append(die)
-            self.dice_in_hand.remove(die)
+        self.dice_in_hand = []
         self.eval_dice()
 
     def player_choice(self):
@@ -158,8 +166,8 @@ class Game():
         brains = 0
         feet = 0
         # how many feet, brains, and blasts?
-        for i in self.dice_on_table:
-            current = self.dice_on_table[i]
+        temp_dice_table = self.dice_on_table[:] # prevents errors from altering inside loop
+        for current in self.dice_on_table:
             if current.current_side == 'shotgun':
                 blasts += 1
             elif current.current_side == 'brain':
@@ -167,12 +175,13 @@ class Game():
             else:
                 feet += 1
                 # move feet back to dice_in_hand
-                self.dice_in_hand.append(self.dice_on_table[i])
-                self.dice_on_table.remove(current)
+                self.dice_in_hand.append(current)
+                temp_dice_table.remove(current)
+        self.dice_on_table = temp_dice_table[:]
         return blasts, brains, feet
 
     def eval_dice(self):
-        blasts, brains, feet = count_dice()
+        blasts, brains, feet = self.count_dice()
         # are there 3 blasts?
         if blasts == 3:
             print('You are dead...er.')
@@ -196,12 +205,16 @@ class Game():
             if index(current_player) == len(self.players) - 1:
                 self.final_score()
                 return
-        for dice in dice_in_hand:
+        temp_dice_hand = self.dice_in_hand[:]
+        for dice in self.dice_in_hand:
             self.dice_cup.append(dice)
-            self.dice_in_hand.remove(dice)
+            temp_dice_hand.remove(dice)
+        temp_dice_table = self.dice_on_table[:]
+        self.dice_in_hand = temp_dice_hand[:]
         for dice in dice_on_table:
             self.dice_cup.append(dice)
-            self.dice_on_table.remove(dice)
+            temp_dice_table.remove(dice)
+        self.dice_on_table = temp_dice_table[:]
         self.next_player()
 
     def next_player(self):
