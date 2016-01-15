@@ -88,6 +88,7 @@ class Game():
             self.dice_in_hand.append(current_die)
             # remove selected from dice_cup
             self.dice_cup.remove(current_die)
+        self.roll_dice()
     def roll_dice(self):
         for die in self.dice_in_hand:
             # get a new random side for each die in hand
@@ -95,6 +96,7 @@ class Game():
             # move all dice from the hand to the table
             self.dice_on_table.append(die)
             self.dice_in_hand.remove(die)
+        self.eval_dice()
     def player_choice(self):
         while True:
             try:
@@ -130,20 +132,58 @@ class Game():
         # are there 3 blasts?
         if blasts == 3:
             print('You are dead...er.')
-            # call end_turn
+            self.end_turn()
         # call display_dice
         # create player_choice variable
-        player_continue = player_choice()
-        print(dice_on_table)
+        player_continue = self.player_choice()
         if player_continue:
             # roll again
-            pass
+            self.get_dice(3-feet)
         else:
             current_player.add_brains(brains)
-            # check if the player has
+            print('You have: ' + current_player.brains)
+            # check if the player has 13 brains
             if current_player.win_cond:
                 self.last_round = True
-            # call end_turn
+            self.end_turn()
+    def end_turn(self):
+        if self.last_round:
+            if index(current_player) == len(self.players) - 1:
+                print('Game Over')
+                winner = ""
+                highest = 0
+                for player in self.players:
+                    if player.brains > highest:
+                        highest = player.brains
+                        winner = player
+                print('You win, ' + winner.name)
+                return
+        for dice in dice_in_hand:
+            self.dice_cup.append(dice)
+            self.dice_in_hand.remove(dice)
+        for dice in dice_on_table:
+            self.dice_cup.append(dice)
+            self.dice_on_table.remove(dice)
+        self.next_player()
+    def next_player(self):
+        # change current player
+        if index(current_player) == len(self.players) - 1:
+            next_index = 0
+        else:
+            next_index = index(current_player) + 1
+        self.current_player = self.players[next_index]
+        self.get_dice(3)
+    def display_dice(self):
+        image_map = {
+            'brain': '[ B ]',
+            'feet': '[ F ]',
+            'shotgun': '[ S ]'
+        }
+        display = ''
+        for i in dice_on_table:
+            display += image_map[i.current_side]
+        print('Dice on la mesa: \n' + display)
+
 
 
 
