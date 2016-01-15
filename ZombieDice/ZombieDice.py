@@ -1,4 +1,5 @@
-from random import random.randint
+from random import randint
+from sys import exit
 
 # Die class
 class Die():
@@ -16,7 +17,7 @@ class Die():
         self.sides = self.possible_sides[color]
     def roll(self):
         # pick a random side from the possible sides
-        self.current_side = self.sides[random.randint(0,len(self.sides)) - 1]
+        self.current_side = self.sides[randint(0,len(self.sides)) - 1]
 
 
 # Player class
@@ -69,8 +70,11 @@ class Game():
     def new_game_setup(self):
         while True:
             try:
-                num_players = int(input('How many people hunger for BRAAAIINS today (players)? '))
+                num_players = input('How many people hunger for BRAAAIINS today (players)? ')
                 # validation to make sure the above is in the right range
+                if num_players.lower() == 'exit':
+                    exit()
+                num_players = int(num_players)
                 if (num_players < 1) or (num_players > 6):
                     raise ValueError()
                 else:
@@ -115,7 +119,7 @@ class Game():
             self.cup_empty()
         for die in range(0, num):
             # select a random die from dice_cup
-            current_die = self.dice_cup[random.randint(1, len(self.dice_cup)) - 1]
+            current_die = self.dice_cup[randint(1, len(self.dice_cup)) - 1]
             # put selected die into dice_in_hand
             self.dice_in_hand.append(current_die)
             # remove selected from dice_cup
@@ -141,9 +145,11 @@ class Game():
                     return True
                 elif player_move.lower() == 'n':
                     return False
+                elif player_move.lower() == 'exit':
+                    exit()
                 else:
                     raise ValueError()
-            except:
+            except ValueError:
                 print('Please enter Y/N')
 
     def count_dice(self):
