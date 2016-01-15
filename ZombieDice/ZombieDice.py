@@ -26,6 +26,14 @@ class Player():
         self.name = name
         # brains is the running score variable for the player
         self.brains = 0
+        self.win_cond = False
+    def add_brains(self, num):
+        self.brains += num
+        if self.brains >= 13:
+            self.win_cond = True
+        else:
+            self.win_cond = False
+
 
 
 # Game class
@@ -99,7 +107,7 @@ class Game():
                     raise ValueError()
             except:
                 print('Please enter Y/N')
-    def eval_dice(self):
+    def count_dice(self):
         # temp vars to hold current dice values
         blasts = 0
         brains = 0
@@ -116,14 +124,28 @@ class Game():
                 # move feet back to dice_in_hand
                 self.dice_in_hand.append(self.dice_on_table[i])
                 self.dice_on_table.remove(current)
+        return blasts, brains, feet
+    def eval_dice(self):
+        blasts, brains, feet = count_dice()
         # are there 3 blasts?
         if blasts == 3:
             print('You are dead...er.')
-            # call next_player
+            # call end_turn
         # call display_dice
         # create player_choice variable
         player_continue = player_choice()
         print(dice_on_table)
+        if player_continue:
+            # roll again
+            pass
+        else:
+            current_player.add_brains(brains)
+            # check if the player has
+            if current_player.win_cond:
+                self.last_round = True
+            # call end_turn
+
+
 
 
 
