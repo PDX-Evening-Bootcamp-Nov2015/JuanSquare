@@ -1,5 +1,8 @@
 from random import randint
 from sys import exit
+from blessings import Terminal
+
+t = Terminal()
 
 # Die class
 class Die():
@@ -60,7 +63,8 @@ class Game():
         self.image_map = {
             'brain': '[ B ]',
             'feet': '[ F ]',
-            'shotgun': '[ S ]'
+            'shotgun': '[ S ]',
+            'lineBreak': '=========================================='
         }
         # fill the dice_cup with the appropriate mix of die objects
         for color in self.start_dice:
@@ -87,7 +91,7 @@ class Game():
             new_player = Player(new_player_name)
             # add that player to our players list
             self.players.append(new_player)
-        print('Lets get ready to ambllllllllle...')
+        print('Lets get ready to ambllllllllle...\n')
         self.current_player = self.players[0]
         self.player_start_turn()
 
@@ -96,7 +100,7 @@ class Game():
             try:
                 player_ready = input(self.current_player.name + \
                 ", it's your turn, enter 'Y' to roll: ")
-                if play_ready == 'exit':
+                if player_ready.lower() == 'exit':
                     exit()
                 if player_ready.lower() != 'y':
                     raise ValueError()
@@ -130,15 +134,17 @@ class Game():
             self.dice_in_hand.append(current_die)
             # remove selected from dice_cup
             self.dice_cup.remove(current_die)
-        print (len(self.dice_in_hand), 'dice in hand.')
+        print (self.image_map['lineBreak'], '\n' + str(len(self.dice_cup)), \
+        'dice left in the cup.')
         self.roll_dice()
 
     def roll_dice(self):
         for die in self.dice_in_hand:
             # get a new random side for each die in hand
             die.roll()
-            print(self.current_player.name, 'rolled a', die.color, \
-            self.image_map[die.current_side] + '.')
+            print_string = self.current_player.name + ' rolled a ' + '{t.' + die.color + '}' + \
+            self.image_map[die.current_side] + t.normal
+            print(print_string.format(t=t))
             # move all dice from the hand to the table
             self.dice_on_table.append(die)
         self.dice_in_hand = []
@@ -183,9 +189,9 @@ class Game():
         blasts, brains, feet = self.count_dice()
         # are there 3 blasts?
         if blasts >= 3:
-            print('You are dead...er.')
+            print('\nYou are dead...er.')
             self.end_turn()
-            returnex
+            return
         self.display_dice()
         # create player_choice variable
         player_continue = self.player_choice()
@@ -194,20 +200,19 @@ class Game():
             self.get_dice(3-feet)
         else:
             self.current_player.add_brains(brains)
-            print('You have:', self.current_player.brains, \
-            'brain(s). Nom nom nom...\n==========================================')
+            print(self.image_map['lineBreak'], '\nYou have:', \
+            self.current_player.brains, 'brain(s)', self.current_player.name + \
+            '. Nom nom nom...')
             # check if the player has 13 brains
             if self.current_player.win_cond:
                 self.last_round = True
             self.end_turn()
 
     def end_turn(self):
-        print('You have:', self.current_player.brains, 'brain(s)', \
-        self.current_player.name + '. Nom nom nom...')
         if self.last_round:
             if self.players.index(self.current_player) == len(self.players) - 1:
                 self.final_score()
-                exit()
+                return
         temp_dice_hand = self.dice_in_hand[:]
         for dice in self.dice_in_hand:
             self.dice_cup.append(dice)
@@ -218,6 +223,7 @@ class Game():
             self.dice_cup.append(dice)
             temp_dice_table.remove(dice)
         self.dice_on_table = temp_dice_table[:]
+        print('\n\n\n\n\n\n')
         self.next_player()
 
     def next_player(self):
@@ -232,19 +238,44 @@ class Game():
     def display_dice(self):
         display = ''
         for i in self.dice_on_table:
+            display += '{t.' + i.color + '}'
             display += self.image_map[i.current_side]
-        print('Dice on la mesa: \n' + display)
+        print(self.image_map['lineBreak'])
+        for player in self.players:
+            score = player.brains
+            name = player.name
+            print(name, 'has eaten', score, 'brains.')
+        print(self.image_map['lineBreak'])
+        print('Dice on la mesa: \n' + display.format(t=t), t.normal + '\n')
 
     def final_score(self):
-        print('Game Over')
+        print('\n\n\n\n\n\nGame Over', '\n' + self.image_map['lineBreak'])
         winner = ""
+        tie_winners = []
         highest = 0
         for player in self.players:
             print (player.name, 'scored:', player.brains, 'brains.')
             if player.brains > highest:
                 highest = player.brains
                 winner = player
-        print('=============\nYou win, ' + winner.name +'!!!\n=============')
+        for player in self.players:
+            if player.brains == highest:
+                tie_winners.append(player)
+        if len(tie_winners) > 1:
+            self.tie_round(tie_winners)
+        else:
+            print(self.image_map['lineBreak'] + '\nYou win, ' + winner.name +'!!!\n' \
+            + self.image_map['lineBreak'])
+
+    def tie_round(self, winners):
+        print("\nIt's a tie between:")
+        for player in winners:
+            print(player.name)
+        print("\nBeginning tie-breaker round... (braaaaiiins...)")
+        self.players = winners
+        self.current_player = self.players[0]
+        self.player_start_turn()
+
 
 
 
@@ -255,10 +286,15 @@ class Game():
 
 # Instantiate Them Classes
 new_game = Game()
-new_game.new_game_setup()
+# new_game.new_game_setup()
 
 
 # Testing
+new_game.players = [Player('Bill'), Player('Mittens'), Player('Doug')]
+new_game.players[0].brains = 14
+new_game.players[1].brains = 14
+new_game.players[2].brains = 14
+new_game.final_score()
 # redDie1 = Die('red')
 # print(redDie1.sides)
 # redDie1.roll()
