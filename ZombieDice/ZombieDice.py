@@ -194,6 +194,8 @@ class Game():
             self.get_dice(3-feet)
         else:
             self.current_player.add_brains(brains)
+            print('You have:', self.current_player.brains, \
+            'brain(s). Nom nom nom...\n==========================================')
             # check if the player has 13 brains
             if self.current_player.win_cond:
                 self.last_round = True
