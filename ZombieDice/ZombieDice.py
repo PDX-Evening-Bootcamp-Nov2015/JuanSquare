@@ -96,11 +96,13 @@ class Game():
             try:
                 player_ready = input(self.current_player.name + \
                 ", it's your turn, enter 'Y' to roll: ")
+                if play_ready == 'exit':
+                    exit()
                 if player_ready.lower() != 'y':
                     raise ValueError()
                 else:
                     break
-            except:
+            except ValueError:
                 print("Please enter the letter 'Y' when you are ready.")
         self.get_dice(3)
 
@@ -183,7 +185,7 @@ class Game():
         if blasts >= 3:
             print('You are dead...er.')
             self.end_turn()
-            return
+            returnex
         self.display_dice()
         # create player_choice variable
         player_continue = self.player_choice()
@@ -192,13 +194,14 @@ class Game():
             self.get_dice(3-feet)
         else:
             self.current_player.add_brains(brains)
-            print('You have:', self.current_player.brains, 'brain(s). Nom nom nom...')
             # check if the player has 13 brains
             if self.current_player.win_cond:
                 self.last_round = True
             self.end_turn()
 
     def end_turn(self):
+        print('You have:', self.current_player.brains, 'brain(s)', \
+        self.current_player.name + '. Nom nom nom...')
         if self.last_round:
             if self.players.index(self.current_player) == len(self.players) - 1:
                 self.final_score()
