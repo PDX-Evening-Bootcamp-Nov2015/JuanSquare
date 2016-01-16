@@ -64,7 +64,7 @@ class Game():
             'brain': '[ B ]',
             'feet': '[ F ]',
             'shotgun': '[ S ]',
-            'lineBreak': '=========================================='
+            'lineBreak': t.black_on_bright_red('==========================================')
         }
         # fill the dice_cup with the appropriate mix of die objects
         for color in self.start_dice:
@@ -286,15 +286,15 @@ class Game():
 
 # Instantiate Them Classes
 new_game = Game()
-# new_game.new_game_setup()
+new_game.new_game_setup()
 
 
 # Testing
-new_game.players = [Player('Bill'), Player('Mittens'), Player('Doug')]
-new_game.players[0].brains = 14
-new_game.players[1].brains = 14
-new_game.players[2].brains = 14
-new_game.final_score()
+# new_game.players = [Player('Bill'), Player('Mittens'), Player('Doug')]
+# new_game.players[0].brains = 14
+# new_game.players[1].brains = 14
+# new_game.players[2].brains = 14
+# new_game.final_score()
 # redDie1 = Die('red')
 # print(redDie1.sides)
 # redDie1.roll()
