@@ -1,6 +1,7 @@
 from random import randint
 from sys import exit
 from blessings import Terminal
+from time import sleep
 
 t = Terminal()
 
@@ -91,13 +92,14 @@ class Game():
             new_player = Player(new_player_name)
             # add that player to our players list
             self.players.append(new_player)
-        print('Lets get ready to ambllllllllle...\n')
+        print('Lets get ready to ambllllllllle...')
         self.current_player = self.players[0]
         self.player_start_turn()
 
     def player_start_turn(self):
         while True:
             try:
+                self.print_line_delay(1,0.5)
                 player_ready = input(self.current_player.name + \
                 ", it's your turn, enter 'Y' to roll: ")
                 if player_ready.lower() == 'exit':
@@ -153,6 +155,7 @@ class Game():
     def player_choice(self):
         while True:
             try:
+                self.print_line_delay(1,0.5)
                 player_move = input('Would you like to roll again? Y/N ')
                 if player_move.lower() == 'y':
                     return True
@@ -185,21 +188,31 @@ class Game():
         self.dice_on_table = temp_dice_table[:]
         return blasts, brains, feet
 
+    def dramatic_pause(self, length):
+        '''
+        prints out a dramatic pause, no line break
+        '''
+        for i in range(length):
+            print('.', end='')
+            sleep(0.5)
+
     def eval_dice(self):
         blasts, brains, feet = self.count_dice()
         # are there 3 blasts?
         if blasts >= 3:
-            print('\nYou are dead...er.')
-            self.end_turn()
+            print('You are dead',end='')
+            self.dramatic_pause(3)
+            print('er.')
             return
         self.display_dice()
         # create player_choice variable
         player_continue = self.player_choice()
         if player_continue:
             # roll again
-            self.get_dice(3-feet)
+            self.get_dice(3 - feet)
         else:
             self.current_player.add_brains(brains)
+            self.print_line_delay(1,0.5)
             print(self.image_map['lineBreak'], '\nYou have:', \
             self.current_player.brains, 'brain(s)', self.current_player.name + \
             '. Nom nom nom...')
@@ -223,7 +236,7 @@ class Game():
             self.dice_cup.append(dice)
             temp_dice_table.remove(dice)
         self.dice_on_table = temp_dice_table[:]
-        print('\n\n\n\n\n\n')
+        self.print_line_delay(6, 0.25)
         self.next_player()
 
     def next_player(self):
@@ -249,11 +262,13 @@ class Game():
         print('Dice on la mesa: \n' + display.format(t=t), t.normal + '\n')
 
     def final_score(self):
-        print('\n\n\n\n\n\nGame Over', '\n' + self.image_map['lineBreak'])
         winner = ""
         tie_winners = []
         highest = 0
+        self.print_line_delay(6,0.25)
+        print('Game Over', '\n' + self.image_map['lineBreak'])
         for player in self.players:
+            sleep(0.5)
             print (player.name, 'scored:', player.brains, 'brains.')
             if player.brains > highest:
                 highest = player.brains
@@ -264,17 +279,30 @@ class Game():
         if len(tie_winners) > 1:
             self.tie_round(tie_winners)
         else:
+            sleep(0.5)
             print(self.image_map['lineBreak'] + '\nYou win, ' + winner.name +'!!!\n' \
             + self.image_map['lineBreak'])
 
     def tie_round(self, winners):
         print("\nIt's a tie between:")
         for player in winners:
+            sleep(0.5)
             print(player.name)
+        print()
         print("\nBeginning tie-breaker round... (braaaaiiins...)")
         self.players = winners
         self.current_player = self.players[0]
         self.player_start_turn()
+
+    def print_line_delay(self, lines, delay):
+        '''
+        Prints breaking spaces with a delay
+        '''
+        i = 1
+        while i <= lines:
+            i += 1
+            sleep(delay)
+            print('')
 
 
 
