@@ -188,23 +188,14 @@ class Game():
         self.dice_on_table = temp_dice_table[:]
         return blasts, brains, feet
 
-    def dramatic_pause(self, length):
-        '''
-        prints out a dramatic pause, no line break
-        '''
-        for i in range(length):
-            print('.', end='')
-            sleep(0.5)
-
     def eval_dice(self):
         blasts, brains, feet = self.count_dice()
+        self.display_dice()
         # are there 3 blasts?
         if blasts >= 3:
-            print('You are dead',end='')
-            self.dramatic_pause(3)
-            print('er.')
+            print('You are dead...er.')
+            self.end_turn()
             return
-        self.display_dice()
         # create player_choice variable
         player_continue = self.player_choice()
         if player_continue:
@@ -236,7 +227,7 @@ class Game():
             self.dice_cup.append(dice)
             temp_dice_table.remove(dice)
         self.dice_on_table = temp_dice_table[:]
-        self.print_line_delay(6, 0.25)
+        self.print_line_delay(6, 0.125)
         self.next_player()
 
     def next_player(self):
@@ -265,7 +256,7 @@ class Game():
         winner = ""
         tie_winners = []
         highest = 0
-        self.print_line_delay(6,0.25)
+        self.print_line_delay(6,0.125)
         print('Game Over', '\n' + self.image_map['lineBreak'])
         for player in self.players:
             sleep(0.5)
