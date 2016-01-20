@@ -249,9 +249,9 @@ class Game():
             self.get_dice(3 - feet)
         else:
             # player does not roll again
-            self.end_turn() # perform end turn evaluation
+            self.end_turn(brains) # perform end turn evaluation
 
-    def end_turn(self):
+    def end_turn(self, brains):
         '''
         performs end of turn bookeeping, checks for endgame conditions
         '''
