@@ -7,6 +7,9 @@ t = Terminal()
 
 # Die class
 class Die():
+    '''
+    defines random outcome generator cube simulators for the game
+    '''
     def __init__(self, color):
         # color variable used to select die sides
         self.color = color
@@ -28,7 +31,9 @@ class Die():
 
 # Player class
 class Player():
-    # A unique butterfly (person), used to store data for the course of a game
+    '''
+    A unique butterfly (person), used to store data for the course of a game
+    '''
     def __init__(self, name):
         self.name = name
         self.brains = 0 # running score variable for the player
@@ -239,7 +244,7 @@ class Game():
         if blasts >= 3:
             # if so mandatory turn end
             print('You are dead...er.')
-            self.end_turn()
+            self.end_turn(brains)
             return
         # create player_choice variable
         player_continue = self.player_choice()
