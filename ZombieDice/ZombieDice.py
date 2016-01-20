@@ -67,6 +67,7 @@ class Game():
         # current_player and winner will be player objects
         self.current_player = None
         self.winner = None
+        self.tiebreaker = False
         # phantom_brains keeps track of brains on the table when brains are
         # put back in the cup for rerolling
         self.phantom_brains = 0
@@ -110,12 +111,32 @@ class Game():
             self.players.append(new_player)
         print('Lets get ready to ambllllllllle...')
         self.current_player = self.players[0]
-        self.main_loop() # begin the game
 
     def main_loop(self):
         '''contains overall game flow'''
+        self.player_start_turn()
         while True:
-            self.player_start_turn()
+            print('Running Roll Dice')
+            self.roll_dice()
+            if self.eval_dice(): # check the results of that roll
+                # eval dice will return true if the turn should end
+                self.end_turn()
+                if self.last_round_end():
+                    # check if it's the last turn of the last round
+                    self.final_score()
+                    if not self.tiebreaker:
+                        # check if there is only one winner
+                        break
+                    else:
+                        self.player_start_turn()
+                else:
+                    self.next_player()
+                    self.player_start_turn()
+            else:
+                self.roll_dice()
+
+
+
 
 
     def player_start_turn(self):
@@ -176,7 +197,6 @@ class Game():
             self.dice_cup.remove(current_die)
         print (self.image_map['lineBreak'], '\n' + str(len(self.dice_cup)), \
         'dice left in the cup.')
-        self.roll_dice() # roll the dice you just got
 
     def roll_dice(self):
         '''
@@ -193,7 +213,7 @@ class Game():
             self.dice_on_table.append(die)
         # the hand should be empty now, good job
         self.dice_in_hand = []
-        self.eval_dice() # check the results of that roll
+
 
     def player_choice(self):
         '''
@@ -246,24 +266,24 @@ class Game():
         checks the value of all rolled dice and determines game state
         '''
         blasts, brains, feet = self.count_dice() # dice are counted here
+        self.phantom_brains = brains
         self.display_dice() # show the player their dice
         # are there 3 blasts?
         if blasts >= 3:
             # if so mandatory turn end
             print('You are dead...er.')
-            self.end_turn()
-            return
+            return True
         # create player_choice variable
         player_continue = self.player_choice()
         # check if the player wants to roll again
         if player_continue:
             # roll again
-            self.phantom_brains = brains
             self.get_dice(3 - feet)
+            return False
         else:
             # player does not roll again
             # take temporary brains and make them PERMANENT
-            self.current_player.add_brains(brains + self.phantom_brains)
+            self.current_player.add_brains(self.phantom_brains)
             self.print_line_delay(1,0.5)
             # show the player their shiny new brains
             print(self.image_map['lineBreak'], '\nYou have:', \
@@ -272,18 +292,20 @@ class Game():
             # check if the player has 13 brains
             if self.current_player.win_cond:
                 self.last_round = True
-            self.end_turn() # perform end turn evaluation
+            return True
 
-    def end_turn(self, brains):
+    def last_round_end(self):
+        '''check if it is currently the end of the last round'''
+        if self.last_round:
+            if self.players.index(self.current_player) == len(self.players) - 1:
+                return True
+            return False
+
+    def end_turn(self):
         '''
         performs end of turn bookeeping, checks for endgame conditions
         '''
         self.phantom_brains = 0
-        # check if it is currently the last round
-        if self.last_round:
-            if self.players.index(self.current_player) == len(self.players) - 1:
-                self.final_score() # tally everything up
-                return
         # put all dice from hand back in cup
         temp_dice_hand = self.dice_in_hand[:]
         for dice in self.dice_in_hand:
@@ -297,7 +319,6 @@ class Game():
             temp_dice_table.remove(dice)
         self.dice_on_table = temp_dice_table[:]
         self.print_line_delay(6, 0.125)
-        self.next_player() # move on to the next player's turn
 
     def next_player(self):
         '''
@@ -311,7 +332,6 @@ class Game():
             next_index = self.players.index(self.current_player) + 1
         # change players
         self.current_player = self.players[next_index]
-        self.player_start_turn()
 
     def display_dice(self):
         '''
@@ -373,13 +393,12 @@ class Game():
         for player in winners:
             sleep(0.5)
             print(player.name)
-        print()
         print("\nBeginning tie-breaker round... (braaaaiiins...)")
         # make sure only the winners are playing, boo losers, boooooo
         self.players = winners
         # go back to the first player (who won)
         self.current_player = self.players[0]
-        self.player_start_turn() # aaaaaand GO!
+        self.tiebreaker = True
 
     def print_line_delay(self, lines, delay):
         '''
@@ -404,3 +423,6 @@ if __name__ == '__main__':
     t = Terminal()
     new_game = Game()
     new_game.new_game_setup()
+    new_game.players[0].brains = 13
+    new_game.players[1].brains = 13
+    new_game.main_loop()
