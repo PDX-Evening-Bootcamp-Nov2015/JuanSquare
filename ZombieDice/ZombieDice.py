@@ -3,7 +3,7 @@ from sys import exit
 from blessings import Terminal
 from time import sleep
 
-t = Terminal()
+
 
 # Die class
 class Die():
@@ -53,6 +53,7 @@ class Player():
 
 # Game class
 class Game():
+    '''all-containing class for each instance of a game'''
     def __init__(self):
         # define the initial set of dice the game uses
         self.start_dice = ['red', 'red', 'red', 'yellow', 'yellow', 'yellow',\
@@ -109,7 +110,13 @@ class Game():
             self.players.append(new_player)
         print('Lets get ready to ambllllllllle...')
         self.current_player = self.players[0]
-        self.player_start_turn()
+        self.main_loop() # begin the game
+
+    def main_loop(self):
+        '''contains overall game flow'''
+        while True:
+            self.player_start_turn()
+
 
     def player_start_turn(self):
         '''
@@ -244,32 +251,34 @@ class Game():
         if blasts >= 3:
             # if so mandatory turn end
             print('You are dead...er.')
-            self.end_turn(brains)
+            self.end_turn()
             return
         # create player_choice variable
         player_continue = self.player_choice()
         # check if the player wants to roll again
         if player_continue:
             # roll again
+            self.phantom_brains = brains
             self.get_dice(3 - feet)
         else:
             # player does not roll again
-            self.end_turn(brains) # perform end turn evaluation
+            # take temporary brains and make them PERMANENT
+            self.current_player.add_brains(brains + self.phantom_brains)
+            self.print_line_delay(1,0.5)
+            # show the player their shiny new brains
+            print(self.image_map['lineBreak'], '\nYou have:', \
+            self.current_player.brains, 'brain(s)', self.current_player.name + \
+            '. Nom nom nom...')
+            # check if the player has 13 brains
+            if self.current_player.win_cond:
+                self.last_round = True
+            self.end_turn() # perform end turn evaluation
 
     def end_turn(self, brains):
         '''
         performs end of turn bookeeping, checks for endgame conditions
         '''
-        # take temporary brains and make them PERMANENT
-        self.current_player.add_brains(brains)
-        self.print_line_delay(1,0.5)
-        # show the player their shiny new brains
-        print(self.image_map['lineBreak'], '\nYou have:', \
-        self.current_player.brains, 'brain(s)', self.current_player.name + \
-        '. Nom nom nom...')
-        # check if the player has 13 brains
-        if self.current_player.win_cond:
-            self.last_round = True
+        self.phantom_brains = 0
         # check if it is currently the last round
         if self.last_round:
             if self.players.index(self.current_player) == len(self.players) - 1:
@@ -391,5 +400,7 @@ class Game():
 
 
 # Instantiate Them Classes
-new_game = Game()
-new_game.new_game_setup()
+if __name__ == '__main__':
+    t = Terminal()
+    new_game = Game()
+    new_game.new_game_setup()
