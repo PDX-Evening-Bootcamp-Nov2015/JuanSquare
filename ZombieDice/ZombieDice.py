@@ -296,14 +296,9 @@ class Game():
 
     def last_round_end(self):
         '''check if it is currently the end of the last round'''
-        print(self.last_round) #debugging
-        print('{} current player index'.format(self.players.index(self.current_player))) #debugging
-        print('{} last player index'.format(len(self.players) - 1)) #debugging
         if self.last_round and \
         self.players.index(self.current_player) == len(self.players) - 1:
-            print('last player of the round') #debugging
             return True
-        print('not the last player of the round') #debugging
         return False
 
     def end_turn(self):
@@ -382,9 +377,9 @@ class Game():
             if player.brains == highest:
                 tie_winners.append(player)
         if len(tie_winners) > 1:
-            print('CALLING TIE ROUND') # debugging statement
             self.tie_round(tie_winners) # call a tie round if you find a tie
         else:
+            self.tiebreaker = False
             sleep(0.5)
             # congratulate the winner if they didn't tie, good job, winner!
             print(self.image_map['lineBreak'] + '\nYou win, ' + winner.name +\
