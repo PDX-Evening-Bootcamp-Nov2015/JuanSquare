@@ -113,10 +113,10 @@ class Game():
         self.current_player = self.players[0]
 
     def main_loop(self):
-        '''contains overall game flow'''
+        '''contains overall game flow, new_game_setup must be run first'''
         self.player_start_turn()
         while True:
-            print('Running Roll Dice')
+            # one loop = one turn
             self.roll_dice()
             if self.eval_dice(): # check the results of that roll
                 # eval dice will return true if the turn should end
@@ -126,18 +126,15 @@ class Game():
                     self.final_score()
                     if not self.tiebreaker:
                         # check if there is only one winner
-                        break
+                        break # Game Over
                     else:
+                        # start first turn of tiebreak round
                         self.player_start_turn()
                 else:
+                    # move to next turn
                     self.next_player()
                     self.player_start_turn()
-            else:
-                self.roll_dice()
-
-
-
-
+            # moves to the next round if eval dice returned False
 
     def player_start_turn(self):
         '''
