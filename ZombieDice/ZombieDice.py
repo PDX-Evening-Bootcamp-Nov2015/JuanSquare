@@ -112,6 +112,7 @@ class Game():
         print('Lets get ready to ambllllllllle...')
         self.current_player = self.players[0]
 
+
     def main_loop(self):
         '''contains overall game flow'''
         self.player_start_turn()
@@ -424,7 +425,4 @@ if __name__ == '__main__':
     t = Terminal()
     new_game = Game()
     new_game.new_game_setup()
-    new_game.players[0].brains = 13
-    new_game.players[1].brains = 13
-    new_game.last_round = True
     new_game.main_loop()
