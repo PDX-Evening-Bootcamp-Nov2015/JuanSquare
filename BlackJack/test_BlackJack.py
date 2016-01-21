@@ -17,3 +17,6 @@ class BlackJackTestCase(unittest.TestCase):
         test_rootdeck = Deck(6)
         test_rootdeck.create_deck()
         self.assertEqual(len(test_rootdeck.cards), 312)
+
+    def number_of_players_prompt(self):
+        
