@@ -117,7 +117,7 @@ class Game():
         '''contains overall game flow'''
         self.player_start_turn()
         while True:
-            print('Running Roll Dice')
+            # one loop = one turn
             self.roll_dice()
             if self.eval_dice(): # check the results of that roll
                 # eval dice will return true if the turn should end
@@ -133,12 +133,6 @@ class Game():
                 else:
                     self.next_player()
                     self.player_start_turn()
-            else:
-                self.roll_dice()
-
-
-
-
 
     def player_start_turn(self):
         '''
