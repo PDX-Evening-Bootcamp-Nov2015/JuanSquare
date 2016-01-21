@@ -24,3 +24,5 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertFalse(test_player.dealer)
         self.assertEqual(test_player.current_hand, [])
         self.assertEqual(test_player.hands_won, 0)
+
+    def number_of_players_prompt(self):
