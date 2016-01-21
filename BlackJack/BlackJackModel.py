@@ -1,4 +1,4 @@
-
+from random import shuffle
 
 class Card():
     def __init__(self, suit, value):
@@ -15,6 +15,7 @@ class Card():
 class Deck():
     default_deck = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"]
     default_suit = ["hearts", "clubs", "spades", "diamonds"]
+    
     def __init__(self,num_decks):
         self.num_decks = num_decks
         self.cards = []
@@ -25,3 +26,6 @@ class Deck():
                 for decks in range(self.num_decks):
                     new_card = Card(suit, value)
                     self.cards.append(new_card)
+
+    def shuffle(self):
+        shuffle(self.cards)
