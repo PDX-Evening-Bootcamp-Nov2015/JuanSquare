@@ -1,5 +1,6 @@
 import unittest
-from BlackJackModel import Card, Deck, Player
+from BlackJackModel import Card, Deck
+from BlackJackController import Game
 
 
 
@@ -18,11 +19,13 @@ class BlackJackTestCase(unittest.TestCase):
         test_rootdeck.create_deck()
         self.assertEqual(len(test_rootdeck.cards), 312)
 
-    def test_player_creation(self):
-        test_player = Player('Percival')
-        self.assertEqual(test_player.name, 'Percival')
-        self.assertFalse(test_player.dealer)
-        self.assertEqual(test_player.current_hand, [])
-        self.assertEqual(test_player.hands_won, 0)
+    def test_number_of_players_prompt(self):
+        pass
 
-    def number_of_players_prompt(self):
+    def test_names_of_players(self):
+        test_game_object = Game()
+        names = ["test","testy"]
+        self.assertEqual(names, test_game_object.names_of_players())
+
+    def test_assign_player_objects(self):
+        pass
