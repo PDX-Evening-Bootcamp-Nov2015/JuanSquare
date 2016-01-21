@@ -25,3 +25,10 @@ class Deck():
                 for decks in range(self.num_decks):
                     new_card = Card(suit, value)
                     self.cards.append(new_card)
+
+class Player():
+    def __init__(self, name):
+        self.name = name
+        self.current_hand = []
+        self.hands_won = 0
+        self.dealer = False
