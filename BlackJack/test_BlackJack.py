@@ -1,5 +1,6 @@
 import unittest
-from BlackJackModel import Card
+from BlackJackModel import Card, Deck
+
 
 
 class BlackJackTestCase(unittest.TestCase):
@@ -11,3 +12,8 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(test_card.value, value)
         self.assertEqual(test_card.color, 'red')
         self.assertEqual(test_card.showing, True)
+
+    def test_create_deck(self):
+        test_rootdeck = Deck(6)
+        test_rootdeck.create_deck()
+        self.assertEqual(len(test_rootdeck.cards), 312)
