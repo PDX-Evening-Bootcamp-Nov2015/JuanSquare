@@ -3,7 +3,7 @@ from BlackJackModel import Player
 class Game():
     def __init__(self):
         self.number_of_players = 0
-        self.player_name_list = ["evan"]
+        self.player_name_list = ["evan"] #TODO change to blank list
         self.player_object_list = []
 
     def number_of_players_prompt(self):
@@ -26,11 +26,8 @@ class Game():
         for name in self.player_name_list:
             self.player_object_list.append(Player(name))
 
+    def set_player_hand(self, player, cards):
+        pass
 
-
-
-
-
-            #
-            #
-            # self.player_object_list.append(Player(name))
+    def hit_deal(self):
+        pass

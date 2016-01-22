@@ -1,10 +1,13 @@
 import unittest
-from BlackJackModel import Card, Deck
+from BlackJackModel import Card, Deck, Player
 from BlackJackController import Game
 
 
 
 class BlackJackTestCase(unittest.TestCase):
+    def setUp(self):
+        self.test_game_object = Game()
+        self.test_game_object.deck = Deck(6)
 
     def test_card_creation(self):
         suit, value = 'diamonds', 'ace'
@@ -31,3 +34,24 @@ class BlackJackTestCase(unittest.TestCase):
         test_game_object = Game()
         test_game_object.assign_player_objects()
         self.assertEqual(test_game_object.player_name_list[0], test_game_object.player_object_list[0].name)
+
+    def test_set_player_hand(self):
+        '''
+        tests function to set a player's hand
+        player: is a player object
+        cards: a list of card objects
+        '''
+        # check adding to empty hand
+        self.test_game_object.player_object_list[0] = Player('Bill')
+        test_player = self.test_game_object.player_object_list[0]
+        cards_dealt = [Card('spades', 'five'), Card('hearts', 'king')]
+        self.test_game_object.set_player_hand(test_player, cards_dealt)
+        self.assertEqual(self.test_player.current_hand, cards_dealt)
+        # check adding to existing hand
+        new_card = Card('spades, six')
+        self.test_game_object.set_player_hand(test_player, [new_card])
+        cards_dealt.append(new_card)
+        self.assertEqual(self.test_player.current_hand, cards_dealt)
+
+    def test_hit_deal(self):
+        pass
