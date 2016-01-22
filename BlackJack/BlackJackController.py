@@ -5,6 +5,7 @@ class Game():
         self.number_of_players = 0
 #TODO Delete this evan list it should be a blank list
         self.player_name_list = ["evan"]
+        self.current_player = 0
         self.player_object_list = []
 
     def number_of_players_prompt(self):
@@ -26,6 +27,15 @@ class Game():
     def assign_player_objects(self):
         for name in self.player_name_list:
             self.player_object_list.append(Player(name))
+
+    def player_turn(self):
+         """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
+        if self.current_player < len(self.player_object_list)-1:
+            self.current_player += 1
+        else:
+            self.current_player = 0
+
+
 
 
 
