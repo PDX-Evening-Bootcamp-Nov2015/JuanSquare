@@ -26,7 +26,12 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(len(test_rootdeck.cards), 312)
 
     def test_player_creation(self):
-        test_player = Player("bob")
+        test_player = Player("Bob")
+        self.assertEqual(test_player.name, "Bob")
+        self.assertEqual(test_player.current_hand, [])
+        self.assertEqual(test_player.current_hand_value, 0)
+        self.assertEqual(test_player.hands_won, 0)
+        self.assertEqual(test_player.dealer, False)
 
     def test_number_of_players_prompt(self):
         pass
@@ -68,14 +73,15 @@ class BlackJackTestCase(unittest.TestCase):
         test_player.current_hand = [Card('spades', 'five'), Card('hearts', 'king')]
         self.test_game_object.set_hand_val(test_player)
         self.assertEqual(test_player.current_hand_value, 15)
+        # case 2, expect 21
         test_player.current_hand = [Card('spades', 'ace'), Card('hearts', 'king')]
         self.test_game_object.set_hand_val(test_player)
         self.assertEqual(test_player.current_hand_value, 21)
+        # case 3, expect 21
         test_player.current_hand = [Card('spades', 'ace'), \
         Card('hearts', 'king'), Card('hearts', 'king')]
         self.test_game_object.set_hand_val(test_player)
         self.assertEqual(test_player.current_hand_value, 21)
-
 
     def test_hit_deal(self):
         pass

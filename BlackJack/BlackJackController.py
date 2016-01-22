@@ -1,4 +1,4 @@
-from BlackJackModel import Player
+from BlackJackModel import Player, Deck, Card
 
 class Game():
     def __init__(self):
