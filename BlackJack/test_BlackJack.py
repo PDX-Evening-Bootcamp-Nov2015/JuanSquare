@@ -78,13 +78,14 @@ class BlackJackTestCase(unittest.TestCase):
 
 
     def test_hit_deal(self):
-        pass
+        test_variable = self.test_game_object.deck.cards[0]
+        test_hand = self.player_object_list[self.current_player].current_hand
+        self.test_game_object.test_hit_deal()
+        self.assertTrue(test_variable, test_hand )
+
 
     def test_player_turn(self):
         self.current_player = 0
         self.test_game_object.player_object_list = [Player("evan"), Player("Evan2")]
         self.test_game_object.player_turn()
         self.assertEqual(self.current_player, 1)
-
-    def test_hit_deal(self):
-        pass
