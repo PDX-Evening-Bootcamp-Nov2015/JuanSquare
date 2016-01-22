@@ -86,12 +86,10 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.player_turn()
         self.assertEqual(self.current_player, 1)
 
-<<<<<<< HEAD
     def test_check_bust(self):
         self.test_game_object.check_bust()
         self.test_game_object.current_hand_value = 22
         self.assertTrue(player.busted)
-=======
+
     def test_hit_deal(self):
         pass
->>>>>>> 0fde1975864d5de42faf2d2ace1c4bb06ac6bc7d
