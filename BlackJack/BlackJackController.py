@@ -8,10 +8,19 @@ class Game():
         self.current_player = 0
         self.player_object_list = []
 
-    def number_of_players_prompt(self):
-        number_of_players = int(input("How many players? (Please enter a number between 1 and 5):"))
-        while number_of_players <= 5 and number_of_players != 0:
-            print("Sorry please enter a number between 1 and 6")
+    def number_of_players_prompt():
+        number_of_players = 0
+        run = True
+        while run:
+            try:
+                txt = int(input("How many players? (Please enter a number between 1 and 5):"))
+                number_of_players = txt
+                if txt >5 or txt < 1:
+                    print("Sorry please enter a number between 1 and 5")
+                else:
+                    run = False
+            except ValueError:
+                print ("Thanks for telling us how many are playing!")
         return number_of_players
 
     def names_of_players(self):
