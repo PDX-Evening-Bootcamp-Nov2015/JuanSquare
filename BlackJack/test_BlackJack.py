@@ -85,3 +85,6 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.player_object_list = [Player("evan"), Player("Evan2")]
         self.test_game_object.player_turn()
         self.assertEqual(self.current_player, 1)
+
+    def test_hit_deal(self):
+        pass
