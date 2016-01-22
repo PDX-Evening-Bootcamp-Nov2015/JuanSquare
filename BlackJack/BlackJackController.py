@@ -2,19 +2,15 @@ from BlackJackModel import Player
 
 class Game():
     def __init__(self):
-<<<<<<< HEAD
-        # self.number_of_players = 0
-=======
         self.number_of_players = 0
 #TODO Delete this evan list it should be a blank list
->>>>>>> 132879cf777407adbe8cdeef4fe3bfa303d151a3
         self.player_name_list = ["evan"]
         self.current_player = 0
         self.player_object_list = []
 
     def number_of_players_prompt(self):
         number_of_players = int(input("How many players? (Please enter a number between 1 and 5):"))
-        while number_of_players <= 5 and number_of_players != 0:
+        if number_of_players >= 5 and number_of_players != 0:
             print("Sorry please enter a number between 1 and 6")
         return number_of_players
 
@@ -35,14 +31,14 @@ class Game():
     def spawn_dealer(self):
         dealer = Player('Dealer')
         dealer.dealer = True
-        player_object_list.append(dealer)
+        self.player_object_list.append(dealer)
 
     def player_turn(self):
          """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
-        if self.current_player < len(self.player_object_list)-1:
-            self.current_player += 1
-        else:
-            self.current_player = 0
+         if self.current_player < len(player_object_list)-1:
+             self.current_player += 1
+         else:
+             self.current_player = 0
 
 
 

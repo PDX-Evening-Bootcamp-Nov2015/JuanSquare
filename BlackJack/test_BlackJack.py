@@ -30,8 +30,8 @@ class BlackJackTestCase(unittest.TestCase):
     def test_assign_player_objects(self):
         test_game_object = Game()
         test_game_object.assign_player_objects()
-        self.assertEqual(test_game_object.player_name_list[0], test_game_object.player_object_list[0].name)
+        self.assertEqual(self.test_game_object.player_name_list[0], test_game_object.player_object_list[0].name)
 
     def test_spawn_dealer(self):
-
-    def test_player_turn(self):
+        self.assertEqual(player_object_list[-1], dealer)
+        self.assertTrue(dealer.dealer)
