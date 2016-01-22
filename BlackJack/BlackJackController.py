@@ -29,19 +29,8 @@ class Game():
             self.player_object_list.append(Player(name))
 
     def player_turn(self):
-         """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
+        """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
         if self.current_player < len(self.player_object_list)-1:
             self.current_player += 1
         else:
             self.current_player = 0
-
-
-
-
-
-
-
-
-            #
-            #
-            # self.player_object_list.append(Player(name))
