@@ -37,3 +37,4 @@ class Player():
         self.current_hand_value = 0
         self.hands_won = 0
         self.dealer = False
+        self.busted =  False

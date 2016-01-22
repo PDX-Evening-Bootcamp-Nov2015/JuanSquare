@@ -65,3 +65,15 @@ class Game():
             self.current_player += 1
         else:
             self.current_player = 0
+
+    def check_bust(self):
+        player = self.player_object_list[self.current_player]
+        if player.current_hand_value > 21:
+            player.busted = True
+
+    def dealer_decision(self):
+        dealer = self.player_object_list[-1]
+        if dealer.current_hand_value <= 16:
+            return True
+        if dealer.current_hand_value > 16:
+            return False
