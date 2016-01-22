@@ -33,4 +33,5 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(test_game_object.player_name_list[0], test_game_object.player_object_list[0].name)
 
     def test_spawn_dealer(self):
-        
+
+    def test_player_turn(self):
