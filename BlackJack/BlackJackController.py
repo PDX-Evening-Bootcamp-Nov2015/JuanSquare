@@ -2,7 +2,6 @@ from BlackJackModel import Player
 
 class Game():
     def __init__(self):
-        self.number_of_players = 0
 #TODO Delete this evan list it should be a blank list
         self.player_name_list = ["evan"]
         self.current_player = 0
