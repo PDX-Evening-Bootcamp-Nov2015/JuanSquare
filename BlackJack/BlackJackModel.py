@@ -27,7 +27,6 @@ class Deck():
                     new_card = Card(suit, value)
                     self.cards.append(new_card)
 
-
     def shuffle(self):
         shuffle(self.cards)
 
