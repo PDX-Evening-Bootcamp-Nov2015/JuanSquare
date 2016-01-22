@@ -43,16 +43,16 @@ class BlackJackTestCase(unittest.TestCase):
         cards: a list of card objects
         '''
         # check adding to empty hand
-        self.test_game_object.player_object_list[0] = Player('Bill')
+        self.test_game_object.player_object_list.append(Player('Bill'))
         test_player = self.test_game_object.player_object_list[0]
         cards_dealt = [Card('spades', 'five'), Card('hearts', 'king')]
         self.test_game_object.set_player_hand(test_player, cards_dealt)
-        self.assertEqual(self.test_player.current_hand, cards_dealt)
+        self.assertEqual(test_player.current_hand, cards_dealt)
         # check adding to existing hand
-        new_card = Card('spades, six')
+        new_card = Card('spades', 'six')
         self.test_game_object.set_player_hand(test_player, [new_card])
         cards_dealt.append(new_card)
-        self.assertEqual(self.test_player.current_hand, cards_dealt)
+        self.assertEqual(test_player.current_hand, cards_dealt)
 
     def test_hit_deal(self):
         pass

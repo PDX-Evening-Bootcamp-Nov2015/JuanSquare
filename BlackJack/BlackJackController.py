@@ -29,7 +29,8 @@ class Game():
             self.player_object_list.append(Player(name))
 
     def set_player_hand(self, player, cards):
-        pass
+        for card in cards:
+            player.current_hand.append(card)
 
     def hit_deal(self):
         pass
