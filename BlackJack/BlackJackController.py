@@ -3,7 +3,9 @@ from BlackJackModel import Player
 class Game():
     def __init__(self):
         self.number_of_players = 0
-        self.player_name_list = ["evan"] #TODO change to blank list
+#TODO Delete this evan list it should be a blank list
+        self.player_name_list = ["evan"]
+        self.current_player = 0
         self.player_object_list = []
 
     def number_of_players_prompt(self):
@@ -31,3 +33,10 @@ class Game():
 
     def hit_deal(self):
         pass
+
+    def player_turn(self):
+        """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
+        if self.current_player < len(self.player_object_list)-1:
+            self.current_player += 1
+        else:
+            self.current_player = 0
