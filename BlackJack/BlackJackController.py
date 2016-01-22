@@ -7,6 +7,8 @@ class Game():
         self.player_name_list = ["evan"]
         self.current_player = 0
         self.player_object_list = []
+        self.deck = Deck(6) # create the deck object
+        self.deck.create_deck() # call method to populate deck with cards
 
     def number_of_players_prompt(self):
         number_of_players = int(input("How many players? (Please enter a number between 1 and 5):"))
@@ -34,8 +36,16 @@ class Game():
         self.player_object_list.append(dealer)
 
     def set_player_hand(self, player, cards):
+        '''
+        tests function to set a player's hand
+        player: is a player object
+        cards: a list of card objects
+        '''
         for card in cards:
             player.current_hand.append(card)
+
+    def set_hand_val(self, player):
+        pass
 
     def hit_deal(self):
         pass

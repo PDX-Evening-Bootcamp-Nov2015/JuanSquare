@@ -25,6 +25,9 @@ class BlackJackTestCase(unittest.TestCase):
         test_rootdeck.create_deck()
         self.assertEqual(len(test_rootdeck.cards), 312)
 
+    def test_player_creation(self):
+        test_player = Player("bob")
+
     def test_number_of_players_prompt(self):
         pass
 
@@ -47,7 +50,7 @@ class BlackJackTestCase(unittest.TestCase):
         cards: a list of card objects
         '''
         # check adding to empty hand
-        self.test_game_object.player_object_list.append(Player('Bill'))
+        self.test_game_object.player_object_list.insert(0, Player('Bill'))
         test_player = self.test_game_object.player_object_list[0]
         cards_dealt = [Card('spades', 'five'), Card('hearts', 'king')]
         self.test_game_object.set_player_hand(test_player, cards_dealt)
@@ -57,6 +60,22 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.set_player_hand(test_player, [new_card])
         cards_dealt.append(new_card)
         self.assertEqual(test_player.current_hand, cards_dealt)
+
+    def test_set_hand_val(self):
+        self.test_game_object.player_object_list.insert(0, Player('Bill'))
+        test_player = self.test_game_object.player_object_list[0]
+        # case 1, expect 15
+        test_player.current_hand = [Card('spades', 'five'), Card('hearts', 'king')]
+        self.test_game_object.set_hand_val(test_player)
+        self.assertEqual(test_player.current_hand_value, 15)
+        test_player.current_hand = [Card('spades', 'ace'), Card('hearts', 'king')]
+        self.test_game_object.set_hand_val(test_player)
+        self.assertEqual(test_player.current_hand_value, 21)
+        test_player.current_hand = [Card('spades', 'ace'), \
+        Card('hearts', 'king'), Card('hearts', 'king')]
+        self.test_game_object.set_hand_val(test_player)
+        self.assertEqual(test_player.current_hand_value, 21)
+
 
     def test_hit_deal(self):
         pass
