@@ -8,7 +8,7 @@ class Game():
         self.current_player = 0
         self.player_object_list = []
 
-<<<<<<< HEAD
+
     def number_of_players_prompt():
         number_of_players = 0
         run = True
@@ -22,12 +22,6 @@ class Game():
                     run = False
             except ValueError:
                 print ("Thanks for telling us how many are playing!")
-=======
-    def number_of_players_prompt(self):
-        number_of_players = int(input("How many players? (Please enter a number between 1 and 5):"))
-        if number_of_players >= 5 and number_of_players != 0:
-            print("Sorry please enter a number between 1 and 6")
->>>>>>> 26f14cb691280a431e5424f82c0fa8c3c3f8d070
         return number_of_players
 
     def names_of_players(self):
