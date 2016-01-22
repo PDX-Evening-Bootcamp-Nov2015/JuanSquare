@@ -4,7 +4,7 @@ _Students work as a group of to implement a kid-friendly version of Blackjack, o
 ## Requirements
 - Supports 1 - 5 players
 - Uses 6 decks
-- Keep track of number of hands each player has one
+- Keep track of number of hands each player has won
 - Dealer is a Robot and always goes last
 - The design of the program should leverage MVC
 - Test Driven Development should be used for creation of the game, with all tests kept in the test folder

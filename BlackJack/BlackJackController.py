@@ -33,6 +33,13 @@ class Game():
         dealer.dealer = True
         self.player_object_list.append(dealer)
 
+    def set_player_hand(self, player, cards):
+        for card in cards:
+            player.current_hand.append(card)
+
+    def hit_deal(self):
+        pass
+
     def player_turn(self):
         """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
         if self.current_player < len(self.player_object_list)-1:
