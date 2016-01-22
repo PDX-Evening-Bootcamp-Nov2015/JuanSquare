@@ -2,7 +2,7 @@ from BlackJackModel import Player
 
 class Game():
     def __init__(self):
-        self.number_of_players = 0
+        # self.number_of_players = 0
         self.player_name_list = ["evan"]
         self.player_object_list = []
 
@@ -15,7 +15,7 @@ class Game():
     def names_of_players(self):
 #TODO delete this names list
         names = ["test","testy"]
-        for x in range(1, (self.number_of_players + 1)):
+        for x in range(1, (self.number_of_players_prompt() + 1)):
             print ("Player number" + str(x))
             name = input("Please enter name:")
             self.player_name_list.append(name)
@@ -25,6 +25,12 @@ class Game():
     def assign_player_objects(self):
         for name in self.player_name_list:
             self.player_object_list.append(Player(name))
+
+    def spawn_dealer(self):
+        dealer = Player('Dealer')
+        dealer.dealer = True
+        player_object_list.append(dealer)
+
 
 
 

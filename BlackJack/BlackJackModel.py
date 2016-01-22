@@ -34,6 +34,6 @@ class Deck():
 class Player():
     def __init__(self, name):
         self.name = name
-        self.current_hand = []
+        self.current_hand = 0
         self.hands_won = 0
         self.dealer = False
