@@ -46,3 +46,8 @@ class Game():
             self.current_player += 1
         else:
             self.current_player = 0
+
+    def check_bust(self):
+        player = self.player_object_list[current_player]
+        if player.current_hand_value > 21:
+            player.busted = True
