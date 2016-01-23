@@ -17,6 +17,7 @@ class BlackJackTestCase(unittest.TestCase):
         test_card = Card(suit, value)
         self.assertEqual(test_card.suit, suit)
         self.assertEqual(test_card.value, value)
+        self.assertEqual(test_card.score, 11)
         self.assertEqual(test_card.color, 'red')
         self.assertEqual(test_card.showing, True)
 
@@ -72,14 +73,19 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.set_hand_val(test_player)
         self.assertEqual(test_player.current_hand_value, 15)
         # case 2, expect 21
-        test_player.current_hand = [Card('spades', 'ace'), Card('hearts', 'king')]
+        test_player.current_hand = [Card('spades', 'ten'), Card('hearts', 'king')]
         self.test_game_object.set_hand_val(test_player)
-        self.assertEqual(test_player.current_hand_value, 21)
+        self.assertEqual(test_player.current_hand_value, 20)
         # case 3, expect 21
         test_player.current_hand = [Card('spades', 'ace'), \
         Card('hearts', 'king'), Card('hearts', 'king')]
         self.test_game_object.set_hand_val(test_player)
         self.assertEqual(test_player.current_hand_value, 21)
+        # case 4, expect 12
+        test_player.current_hand = [Card('spades', 'ace'), \
+        Card('hearts', 'ace'), Card('hearts', 'king')]
+        self.test_game_object.set_hand_val(test_player)
+        self.assertEqual(test_player.current_hand_value, 12)
 
     def test_hit_deal(self):
         test_variable = self.test_game_object.deck.cards[0]

@@ -19,6 +19,7 @@ class Card():
     def __init__(self, suit, value):
         self.suit = suit
         self.value = value
+        self.score = self.value_map[value]
         self.showing = True
         if self.suit in ['diamonds', 'hearts']:
             self.color = 'red'
