@@ -1,13 +1,14 @@
 from BlackJackModel import Player, Deck, Card
+from BlackJackView import View
 
 class Game():
     def __init__(self):
 #TODO Delete this evan list it should be a blank list
-        self.player_name_list = ["evan"]
         self.current_player = 0
         self.player_object_list = []
         self.deck = Deck(6) # create the deck object
         self.deck.create_deck() # call method to populate deck with cards
+        self.view = View()
 
     def number_of_players_prompt():
         number_of_players = 0
@@ -36,6 +37,11 @@ class Game():
 
     def assign_player_objects(self):
         for name in self.player_name_list:
+
+    def get_players(self):
+        num_players = self.view.number_of_players_prompt()
+        name_players = self.view.names_of_players(num_players)
+        for name in name_players:
             self.player_object_list.append(Player(name))
 
     def spawn_dealer(self):
@@ -126,3 +132,12 @@ class Game():
             return True
         else:
             return False
+
+    def deal_cards(self):
+        for player in self.player_object_list:
+            for i in range(2):
+                player.current_hand.append(self.deck.cards[0])
+                self.deck.cards.pop(0)
+                if player == self.player_object_list[-1]:
+                    showing_card = player.current_hand[0]
+                    showing_card.showing = False
