@@ -99,5 +99,5 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertTrue(player.busted)
 
     def test_check_end_round(self):
-        self.test_game_object.test_spawn_dealer()
-        assertEqual(self.test_game_object.player_object_list[self.current_player].dealer, True)
+        self.test_game_object.spawn_dealer()
+        self.assertEqual(self.test_game_object.player_object_list[self.current_player].dealer, True)
