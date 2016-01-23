@@ -1,42 +1,19 @@
 from BlackJackModel import Player, Deck, Card
+from BlackJackView import View
 
 class Game():
     def __init__(self):
 #TODO Delete this evan list it should be a blank list
-        self.player_name_list = ["evan"]
         self.current_player = 0
         self.player_object_list = []
         self.deck = Deck(6) # create the deck object
         self.deck.create_deck() # call method to populate deck with cards
+        self.view = View()
 
-
-    def number_of_players_prompt():
-        number_of_players = 0
-        run = True
-        while run:
-            try:
-                txt = int(input("How many players? (Please enter a number between 1 and 5):"))
-                number_of_players = txt
-                if txt >5 or txt < 1:
-                    print("Sorry please enter a number between 1 and 5")
-                else:
-                    run = False
-            except ValueError:
-                print ("Thanks for telling us how many are playing!")
-        return number_of_players
-
-    def names_of_players(self):
-#TODO delete this names list
-        names = ["test","testy"]
-        for x in range(1, (self.number_of_players_prompt() + 1)):
-            print ("Player number" + str(x))
-            name = input("Please enter name:")
-            self.player_name_list.append(name)
-#TODO change this return to self.player_name_list.
-        return names
-
-    def assign_player_objects(self):
-        for name in self.player_name_list:
+    def get_players(self):
+        num_players = self.view.number_of_players_prompt()
+        name_players = self.view.names_of_players(num_players)
+        for name in name_players:
             self.player_object_list.append(Player(name))
 
     def spawn_dealer(self):

@@ -1,6 +1,9 @@
 import unittest
+from unittest.mock import patch
 from BlackJackModel import Card, Deck, Player
 from BlackJackController import Game
+from BlackJackView import View
+from io import StringIO
 
 
 
@@ -8,6 +11,7 @@ class BlackJackTestCase(unittest.TestCase):
     def setUp(self):
         self.test_game_object = Game()
         self.test_game_object.deck = Deck(6)
+        self.test_game_object.view = View()
 
     def tearDown(self):
         del self.test_game_object
@@ -33,16 +37,10 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(test_player.hands_won, 0)
         self.assertEqual(test_player.dealer, False)
 
-    def test_number_of_players_prompt(self):
-        pass
-
-    def test_names_of_players(self):
-        names = ["test","testy"]
-        self.assertEqual(names, test_game_object.names_of_players())
-
-    def test_assign_player_objects(self):
-        test_game_object.assign_player_objects()
-        self.assertEqual(self.test_game_object.player_name_list[0], test_game_object.player_object_list[0].name)
+    def test_get_players(self):
+        test_list = ["test","testy"]
+        self.test_game_object.get_players(test_list)
+        self.assertEqual(test_list[0], self.test_game_object.player_object_list[0].name)
 
     def test_spawn_dealer(self):
         self.test_game_object.spawn_dealer()
@@ -83,7 +81,7 @@ class BlackJackTestCase(unittest.TestCase):
 
     def test_hit_deal(self):
         test_variable = self.test_game_object.deck.cards[0]
-        test_hand = self.player_object_list[self.current_player].current_hand
+        test_hand = self.player_object_list[self.test_game_object.current_player].current_hand
         self.test_game_object.test_hit_deal()
         self.assertTrue(test_variable, test_hand)
 
@@ -113,8 +111,8 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertTrue(player.busted)
 
     def test_check_end_round(self):
-        self.test_game_object.test_spawn_dealer()
-        assertEqual(self.test_game_object.player_object_list[self.current_player].dealer, True)
+        self.test_game_object.spawn_dealer()
+        self.assertEqual(self.test_game_object.player_object_list[self.test_game_object.current_player].dealer, True)
 
     def test_dealer_decision(self):
         self.test_game_object.player_object_list = [Player('evan'), Player('evan2')]
