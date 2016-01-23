@@ -90,3 +90,12 @@ class Game():
             return True
         else:
             return False
+
+    def deal_cards(self):
+        for player in self.player_object_list:
+            for i in range(2):
+                player.current_hand.append(self.deck.cards[0])
+                self.deck.cards.pop(0)
+                if player == self.player_object_list[-1]:
+                    showing_card = player.current_hand[0]
+                    showing_card.showing = False
