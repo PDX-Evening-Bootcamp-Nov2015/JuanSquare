@@ -57,7 +57,8 @@ class Game():
         pass
 
     def hit_deal(self):
-        pass
+        self.player_object_list[self.current_player].current_hand.append(self.deck.cards.pop())
+
 
     def player_turn(self):
         """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
