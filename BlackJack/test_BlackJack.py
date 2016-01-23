@@ -104,8 +104,10 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(self.current_player, 1)
 
     def test_check_bust(self):
+        self.test_game_object.player_object_list = [Player('evan'), Player('evan2')]
+        player = self.test_game_object.player_object_list[self.test_game_object.current_player]
+        player.current_hand_value = 22
         self.test_game_object.check_bust()
-        self.test_game_object.current_hand_value = 22
         self.assertTrue(player.busted)
 
     def test_check_end_round(self):
@@ -116,3 +118,17 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.player_object_list.append(Player("test"))
         self.test_game_object.discard_cards()
         self.assertEqual([], self.test_game_object.player_object_list[0].current_hand)
+
+    def test_dealer_decision(self):
+        self.test_game_object.player_object_list = [Player('evan'), Player('evan2')]
+        dealer = self.test_game_object.player_object_list[-1]
+        dealer.current_hand_value = 18
+        self.assertFalse(self.test_game_object.dealer_decision())
+
+    def test_deal_cards(self):
+        self.test_game_object.player_object_list = [Player('evan'), Player('evan2')]
+        player_list = self.test_game_object.player_object_list
+        self.test_game_object.deck.cards = [Card('spades', 'five'), Card('hearts', 'king'), Card('diamonds', 'two'), Card('clubs', 'seven')]
+        self.test_game_object.deal_cards()
+        self.assertEqual(len(player_list[1].current_hand), 2)
+        self.assertFalse(player_list[-1].current_hand[0].showing)
