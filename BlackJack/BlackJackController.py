@@ -10,9 +10,7 @@ class Game():
         self.deck.create_deck() # call method to populate deck with cards
         self.view = View()
 
-    def get_players(self):
-        num_players = self.view.number_of_players_prompt()
-        name_players = self.view.names_of_players(num_players)
+    def get_players(self, name_players):
         for name in name_players:
             self.player_object_list.append(Player(name))
 
@@ -35,7 +33,6 @@ class Game():
 
     def hit_deal(self):
         self.player_object_list[self.current_player].current_hand.append(self.deck.cards.pop())
-
 
     def player_turn(self):
         """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
@@ -67,3 +64,7 @@ class Game():
             return True
         else:
             return False
+
+    def discard_cards(self):
+        for player in self.player_object_list:
+            player.current_hand = []

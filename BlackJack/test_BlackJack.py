@@ -111,3 +111,8 @@ class BlackJackTestCase(unittest.TestCase):
     def test_check_end_round(self):
         self.test_game_object.spawn_dealer()
         self.assertEqual(self.test_game_object.player_object_list[self.test_game_object.current_player].dealer, True)
+
+    def test_discard_cards(self):
+        self.test_game_object.player_object_list.append(Player("test"))
+        self.test_game_object.discard_cards()
+        self.assertEqual([], self.test_game_object.player_object_list[0].current_hand)
