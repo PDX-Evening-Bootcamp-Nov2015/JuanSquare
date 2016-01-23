@@ -84,3 +84,9 @@ class Game():
             self.deck.cards = []
             self.deck.create_deck()
             self.deck.shuffle()
+
+    def check_end_round(self):
+        if self.player_object_list[self.current_player].dealer == True:
+            return True
+        else:
+            return False
