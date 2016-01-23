@@ -87,7 +87,6 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.test_hit_deal()
         self.assertTrue(test_variable, test_hand)
 
-
     def test_player_turn(self):
         self.current_player = 0
         self.test_game_object.player_object_list = [Player("evan"), Player("Evan2")]
@@ -99,8 +98,6 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.current_hand_value = 22
         self.assertTrue(player.busted)
 
-    def test_hit_deal(self):
-        pass
-
     def test_check_end_round(self):
-        pass
+        self.test_game_object.test_spawn_dealer()
+        assertEqual(self.test_game_object.player_object_list[self.current_player].dealer, True)
