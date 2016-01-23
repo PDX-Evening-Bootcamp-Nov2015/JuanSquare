@@ -51,8 +51,6 @@ class BlackJackTestCase(unittest.TestCase):
     def test_set_player_hand(self):
         '''
         tests function to set a player's hand
-        player: is a player object
-        cards: a list of card objects
         '''
         # check adding to empty hand
         self.test_game_object.player_object_list.insert(0, Player('Bill'))
