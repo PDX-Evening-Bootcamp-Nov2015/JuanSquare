@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 from BlackJackModel import Card, Deck, Player
 from BlackJackController import Game
+from BlackJackView import View
 from io import StringIO
 
 
@@ -10,6 +11,7 @@ class BlackJackTestCase(unittest.TestCase):
     def setUp(self):
         self.test_game_object = Game()
         self.test_game_object.deck = Deck(6)
+        self.test_game_object.view = View()
 
     def tearDown(self):
         del self.test_game_object
@@ -35,18 +37,10 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(test_player.hands_won, 0)
         self.assertEqual(test_player.dealer, False)
 
-    def test_number_of_players_prompt(self):
-        pass
-
-    # @patch("sys.stdout", new_callable=StringIO)
-    # @patch("builtins.input", return_value = "name")
-    def test_names_of_players(self):
-        names = ["test","testy"]
-        self.assertEqual(names, self.test_game_object.names_of_players())
-
-    def test_assign_player_objects(self):
-        test_game_object.assign_player_objects()
-        self.assertEqual(self.test_game_object.player_name_list[0], test_game_object.player_object_list[0].name)
+    def test_get_players(self):
+        test_list = ["test","testy"]
+        self.test_game_object.get_players(test_list)
+        self.assertEqual(test_list[0], self.test_game_object.player_object_list[0].name)
 
     def test_spawn_dealer(self):
         self.test_game_object.spawn_dealer()

@@ -1,5 +1,6 @@
 class View():
-        def __init__(self):
+    def __init__(self):
+        pass
 
     def number_of_players_prompt(self):
         run = True
