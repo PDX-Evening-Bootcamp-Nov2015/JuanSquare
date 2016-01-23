@@ -78,3 +78,9 @@ class Game():
             return True
         if dealer.current_hand_value > 16:
             return False
+
+    def check_deck_empty(self):
+        if len(self.deck.cards) < 101:
+            self.deck.cards = []
+            self.deck.create_deck()
+            self.deck.shuffle()
