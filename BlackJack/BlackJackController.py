@@ -78,3 +78,9 @@ class Game():
             return True
         if dealer.current_hand_value > 16:
             return False
+
+    def check_end_round(self):
+        if self.player_object_list[self.current_player].dealer == True:
+            return True
+        else:
+            return False    
