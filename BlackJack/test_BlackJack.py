@@ -86,6 +86,7 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(test_player.current_hand_value, 12)
 
     def test_hit_deal(self):
+# FIXME: this test is hitting an index out of range error
         test_variable = self.test_game_object.deck.cards[0]
         test_hand = self.player_object_list[self.test_game_object.current_player].current_hand
         self.test_game_object.test_hit_deal()
