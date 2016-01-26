@@ -9,6 +9,14 @@ class Game():
         self.deck.create_deck() # call method to populate deck with cards
         self.view = View()
 
+
+    def turn_loop(self):
+        '''
+        main turn logic, encompasses one entire turn
+        '''
+        pass
+
+
     def get_players(self, name_players):
         for name in name_players:
             self.player_object_list.append(Player(name))

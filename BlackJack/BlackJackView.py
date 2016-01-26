@@ -22,3 +22,5 @@ class View():
             name = input("Please enter name:")
             player_names.append(name)
         return player_names
+
+    
