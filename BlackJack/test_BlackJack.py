@@ -144,3 +144,8 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.check_round_winner()
         self.assertEqual(player_list[1].hands_won, 1)
         self.assertEqual(len(self.test_game_object.check_round_winner()), 2)
+
+    def test_bust_string(self):
+        player = Player('Evan')
+        output = self.test_game_object.view.bust_string(player.name)
+        self.assertEqual(output, 'Evan, you busted!')
