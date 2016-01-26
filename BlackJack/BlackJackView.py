@@ -1,6 +1,41 @@
 class View():
+    IMAGE_MAP = {
+        'diamonds': "\u2662",
+        'spade': "\u2664",
+        'clubs': "\u2667",
+        'hearts': "\u2661",
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'five': 5,
+        'six': 6,
+        'seven': 7,
+        'eight': 8,
+        'nine': 9,
+        'ten': 10,
+        'jack': 'Jack',
+        'queen': 'Queen',
+        'king': 'King',
+        'ace': 'Ace',
+        'linebreak': ('=========================================='),
+        'turnchange': "{} it is now your turn!",
+        'gameover': "The game is over, {} you are the winner!",
+        'gameover_dealer': "The game is over, the dealer won!",
+        'playerscore': "{}, your score is now {}",
+        'noshowcard': "XX"
+    }
+
     def __init__(self):
         pass
+
+    def show_table(self, player_object_list):
+        print (self.IMAGE_MAP[linebreak])
+        print (player_object_list.dealer.current_hand)
+        for player in player_object_list:
+            for card in current_hand:
+                if card.showing == True:
+                    print (self.IMAGE_MAP[card.value], self.IMAGE_MAP[card.suit])
+        prit dealers.cards
 
     def number_of_players_prompt(self):
         run = True

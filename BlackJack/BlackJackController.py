@@ -9,6 +9,14 @@ class Game():
         self.deck.create_deck() # call method to populate deck with cards
         self.view = View()
 
+
+    def turn_loop(self):
+        '''
+        main turn logic, encompasses one entire turn
+        '''
+        pass
+
+
     def get_players(self, name_players):
         for name in name_players:
             self.player_object_list.append(Player(name))
@@ -16,7 +24,7 @@ class Game():
     def spawn_dealer(self):
         dealer = Player('Dealer')
         dealer.dealer = True
-        self.player_object_list.append(dealer)
+        self.player_object_list.insert(0, dealer)
 
     def set_hand_val(self, player):
         '''
@@ -95,7 +103,10 @@ class Game():
 
     def discard_cards(self):
         for player in self.player_object_list:
+            for card in player.current_hand:
+                self.deck.cards.append(card)
             player.current_hand = []
+
 
     def deal_cards(self):
         for player in self.player_object_list:
