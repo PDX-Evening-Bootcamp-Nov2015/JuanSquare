@@ -1,3 +1,5 @@
+from sys import exit
+
 class View():
     def __init__(self):
         pass
@@ -23,4 +25,18 @@ class View():
             player_names.append(name)
         return player_names
 
-    
+    def hit_ask(self, player):
+        '''
+        prompts the player for whether they would like to hit or stay
+        '''
+        while True:
+            try:
+                answer = input("Would you like to hit {} ? (Y/N)".format(player.name)).lower()
+                if answer == 'y':
+                    return True
+                elif answer == 'n':
+                    return False
+                else answer == 'exit':
+                    exit()
+            except ValueError:
+                print("Please enter either Y, N or exit...")

@@ -114,3 +114,5 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.deal_cards()
         self.assertEqual(len(player_list[1].current_hand), 2)
         self.assertFalse(player_list[-1].current_hand[0].showing)
+
+## Begin view test functions ===================================
