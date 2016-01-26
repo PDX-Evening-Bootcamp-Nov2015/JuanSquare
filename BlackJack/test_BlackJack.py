@@ -135,6 +135,7 @@ class BlackJackTestCase(unittest.TestCase):
     def test_deal_cards(self):
         self.test_game_object.player_object_list = [Player('evan'), Player('evan2')]
         player_list = self.test_game_object.player_object_list
+        player_list[-1].dealer = True
         self.test_game_object.deck.cards = [Card('spades', 'five'), Card('hearts', 'king'), Card('diamonds', 'two'), Card('clubs', 'seven')]
         self.test_game_object.deal_cards()
         self.assertEqual(len(player_list[1].current_hand), 2)

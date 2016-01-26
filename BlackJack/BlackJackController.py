@@ -96,7 +96,7 @@ class Game():
             return True
 
     def check_end_round(self):
-        if self.player_object_list[self.current_player].dealer == True:
+        if self.player_object_list[self.current_player].dealer:
             return True
         else:
             return False
@@ -111,6 +111,6 @@ class Game():
             for i in range(2):
                 player.current_hand.append(self.deck.cards[0])
                 self.deck.cards.pop(0)
-                if player == self.player_object_list[-1]:
+                if player.dealer:
                     showing_card = player.current_hand[0]
                     showing_card.showing = False
