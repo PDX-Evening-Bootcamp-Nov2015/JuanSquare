@@ -18,6 +18,15 @@ class Game():
         dealer.dealer = True
         self.player_object_list.append(dealer)
 
+    def set_player_hand(self, player, cards):
+        '''
+        tests function to set a player's hand
+        player: is a player object
+        cards: a list of card objects
+        '''
+        for card in cards:
+            player.current_hand.append(card)
+
     def set_hand_val(self, player):
         '''
         sets the player's score property equal to the total score of their cards
@@ -81,10 +90,6 @@ class Game():
             return True
         if dealer.current_hand_value > 16:
             return False
-
-    def check_deck_empty(self):
-        if len(self.deck.cards) < 101:
-            return True
 
     def check_end_round(self):
         if self.player_object_list[self.current_player].dealer:
