@@ -23,11 +23,24 @@ class View():
         'turnchange': "{} it is now your turn!",
         'gameover': "The game is over, {} you are the winner!",
         'gameover_dealer': "The game is over, the dealer won!",
-        'playerscore': "{}, your score is now {}"
+        'playerscore': "{}, your score is now {}",
+        'noshowcard': "XX"
     }
 
     def __init__(self):
         pass
+
+    def show_table(self, player_object_list):
+        print (self.IMAGE_MAP[linebreak])
+        for player in player_object_list:
+            print (player.name)
+            for card in player.current_hand:
+                if card.showing == True:
+                    print (self.IMAGE_MAP[card.value], self.IMAGE_MAP[card.suit])
+                elif card.showing == False:
+                    print ("XX")
+        print (self.IMAGE_MAP[linebreak])
+
 
     def number_of_players_prompt(self):
         run = True
