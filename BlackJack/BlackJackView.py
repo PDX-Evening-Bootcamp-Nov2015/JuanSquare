@@ -30,12 +30,15 @@ class View():
 
     def show_table(self, player_object_list):
         print (self.IMAGE_MAP[linebreak])
-        print (player_object_list.dealer.current_hand)
         for player in player_object_list:
-            for card in current_hand:
+            print (player.name)
+            for card in player.current_hand:
                 if card.showing == True:
                     print (self.IMAGE_MAP[card.value], self.IMAGE_MAP[card.suit])
-        prit dealers.cards
+                elif card.showing == False:
+                    print ("XX")
+        print (self.IMAGE_MAP[linebreak])
+
 
     def number_of_players_prompt(self):
         run = True
@@ -57,3 +60,4 @@ class View():
             name = input("Please enter name:")
             player_names.append(name)
         return player_names
+           
