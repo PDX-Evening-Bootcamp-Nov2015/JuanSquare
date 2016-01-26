@@ -47,22 +47,6 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.spawn_dealer()
         self.assertTrue(self.test_game_object.player_object_list[-1].dealer)
 
-    def test_set_player_hand(self):
-        '''
-        tests function to set a player's hand
-        '''
-        # check adding to empty hand
-        self.test_game_object.player_object_list.insert(0, Player('Bill'))
-        test_player = self.test_game_object.player_object_list[0]
-        cards_dealt = [Card('spades', 'five'), Card('hearts', 'king')]
-        self.test_game_object.set_player_hand(test_player, cards_dealt)
-        self.assertEqual(test_player.current_hand, cards_dealt)
-        # check adding to existing hand
-        new_card = Card('spades', 'six')
-        self.test_game_object.set_player_hand(test_player, [new_card])
-        cards_dealt.append(new_card)
-        self.assertEqual(test_player.current_hand, cards_dealt)
-
     def test_set_hand_val(self):
         self.test_game_object.player_object_list.insert(0, Player('Bill'))
         test_player = self.test_game_object.player_object_list[0]

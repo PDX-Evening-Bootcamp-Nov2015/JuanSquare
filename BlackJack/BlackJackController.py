@@ -18,15 +18,6 @@ class Game():
         dealer.dealer = True
         self.player_object_list.append(dealer)
 
-    def set_player_hand(self, player, cards):
-        '''
-        tests function to set a player's hand
-        player: is a player object
-        cards: a list of card objects
-        '''
-        for card in cards:
-            player.current_hand.append(card)
-
     def set_hand_val(self, player):
         '''
         sets the player's score property equal to the total score of their cards
