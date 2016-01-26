@@ -46,7 +46,7 @@ class BlackJackTestCase(unittest.TestCase):
 
     def test_spawn_dealer(self):
         self.test_game_object.spawn_dealer()
-        self.assertTrue(self.test_game_object.player_object_list[-1].dealer)
+        self.assertTrue(self.test_game_object.player_object_list[0].dealer)
 
     def test_set_hand_val(self):
         self.test_game_object.player_object_list.insert(0, Player('Bill'))
@@ -115,4 +115,13 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(len(player_list[1].current_hand), 2)
         self.assertFalse(player_list[-1].current_hand[0].showing)
 
-## Begin view test functions ===================================
+    def test_check_round_winner(self):
+        self.test_game_object.player_object_list = [Player('evan'), Player('evan2'), Player('evan3')]
+        player_list = self.test_game_object.player_object_list
+        player_list[-1].dealer = True
+        player_list[-1].current_hand_value = 19
+        player_list[0].current_hand_value = 20
+        player_list[1].current_hand_value = 20
+        self.test_game_object.check_round_winner()
+        self.assertEqual(player_list[1].hands_won, 1)
+        self.assertEqual(len(self.test_game_object.check_round_winner()), 2)
