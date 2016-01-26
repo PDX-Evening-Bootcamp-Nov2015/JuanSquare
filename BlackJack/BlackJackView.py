@@ -71,12 +71,12 @@ class View():
                 if answer not in ['y', 'n', 'exit']:
                     raise ValueError("Sorry, we didn't understand your answer.")
                 else:
-                    return answer, player
+                    return answer
             except ValueError:
                 print("Please enter either Y, N or exit...")
 
     def bust_string(self, player):
-        return '{}, you busted!'.format(player)
+        return '{}, you busted!'.format(player.name)
 
     def alert_bust(self, bust_string):
         print(bust_string)

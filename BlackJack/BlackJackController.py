@@ -15,7 +15,41 @@ class Game():
         '''
         main turn logic, encompasses one entire turn
         '''
-        pass
+        while self.view.new_hand_prompt():
+            players = self.player_object_list
+            curr_player = self.player_object_list[current_player]
+            self.deck.shuffle()
+            self.deal_cards()
+            for player in players:
+                self.set_hand_val(player)
+            self.view.show_table(players)
+            turn_over = False
+            while not turn_over:
+                while not curr_player.busted:
+                    if not current_player.dealer and self.hit_prompt(self.view.hit_ask(curr_player)):
+                        self.hit_deal
+                    elif current_player.dealer:
+                        if self.dealer_decision():
+                            self.hit_deal
+                        else:
+                            turn_over = True
+                    self.view.show_table(players)
+                    if self.check_bust():
+                        if current_player.dealer:
+                            turn_over = True
+                        self.view.alert_bust(self.view.bust_string(curr_player))
+                        break
+                self.player_turn()
+            winners = self.check_round_winner()
+            self.discard_cards()
+            self.view.show_round_winners(winners)
+            if not new_hand_prompt():
+                exit()
+
+
+
+
+
 
     def hit_prompt(self, prompt_output):
         '''
