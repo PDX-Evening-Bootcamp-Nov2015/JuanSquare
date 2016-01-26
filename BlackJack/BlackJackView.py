@@ -62,14 +62,14 @@ class View():
         return player_names
 
     def new_hand_prompt():
-    run = 0
-    while run == 0:
-        txt = input("Do you want to play another round? Type yes or no.")
-        if txt.lower() == "yes":
-            return True
-            run = 1
-        elif txt.lower() == "no":
-            return False
-            run = 1
-        else:
-            continue
+        run = 0
+        while run == 0:
+            txt = input("Do you want to play another round? Type yes or no.")
+            if txt.lower() == "yes":
+                return True
+                run = 1
+            elif txt.lower() == "no":
+                return False
+                run = 1
+            else:
+                continue
