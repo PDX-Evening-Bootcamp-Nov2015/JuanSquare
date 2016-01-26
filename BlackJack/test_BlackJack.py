@@ -11,6 +11,7 @@ class BlackJackTestCase(unittest.TestCase):
     def setUp(self):
         self.test_game_object = Game()
         self.test_game_object.deck = Deck(6)
+        self.test_game_object.deck.create_deck()
         self.test_game_object.view = View()
 
     def tearDown(self):
@@ -70,17 +71,17 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(test_player.current_hand_value, 12)
 
     def test_hit_deal(self):
-# FIXME: this test is hitting an index out of range error
         test_variable = self.test_game_object.deck.cards[0]
-        test_hand = self.player_object_list[self.test_game_object.current_player].current_hand
-        self.test_game_object.test_hit_deal()
+        self.test_game_object.player_object_list = [Player("evan"), Player("Evan2")]
+        test_hand = self.test_game_object.player_object_list[self.test_game_object.current_player].current_hand
+        self.test_game_object.hit_deal()
         self.assertTrue(test_variable, test_hand)
 
     def test_player_turn(self):
-        self.current_player = 0
+        self.test_game_object.current_player = 0
         self.test_game_object.player_object_list = [Player("evan"), Player("Evan2")]
         self.test_game_object.player_turn()
-        self.assertEqual(self.current_player, 1)
+        self.assertEqual(self.test_game_object.current_player, 1)
 
     def test_check_bust(self):
         self.test_game_object.player_object_list = [Player('evan'), Player('evan2')]
