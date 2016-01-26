@@ -20,7 +20,8 @@ class View():
         'linebreak': ('=========================================='),
         'turnchange': "{} it is now your turn!",
         'gameover': "The game is over, {} you are the winner!",
-
+        'gameover_dealer': "The game is over, the dealer won!",
+        'playerscore': "{}, your score is now {}"
     }
 
     def __init__(self):
