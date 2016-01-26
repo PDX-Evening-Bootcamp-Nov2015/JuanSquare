@@ -18,15 +18,6 @@ class Game():
         dealer.dealer = True
         self.player_object_list.append(dealer)
 
-    def set_player_hand(self, player, cards):
-        '''
-        tests function to set a player's hand
-        player: is a player object
-        cards: a list of card objects
-        '''
-        for card in cards:
-            player.current_hand.append(card)
-
     def set_hand_val(self, player):
         '''
         sets the player's score property equal to the total score of their cards
@@ -74,7 +65,7 @@ class Game():
 
     def player_turn(self):
         """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
-        if self.current_player < len(self.player_object_list) - 1:
+        if self.current_player < len(self.player_object_list)-1:
             self.current_player += 1
         else:
             self.current_player = 0
@@ -90,6 +81,10 @@ class Game():
             return True
         if dealer.current_hand_value > 16:
             return False
+
+    def check_deck_empty(self):
+        if len(self.deck.cards) < 101:
+            return True
 
     def check_end_round(self):
         if self.player_object_list[self.current_player].dealer:
@@ -110,3 +105,17 @@ class Game():
                 if player.dealer:
                     showing_card = player.current_hand[0]
                     showing_card.showing = False
+
+    def check_round_winner(self):
+        dealer = self.player_object_list[-1]
+        winner_list = []
+        if dealer.current_hand_value == 21:
+            dealer.hands_won += 1
+            winner_list.append(dealer)
+            return winner_list
+        else:
+            for player in self.player_object_list:
+                if player.current_hand_value > dealer.current_hand_value and not player.busted:
+                    player.hands_won += 1
+                    winner_list.append(player)
+            return winner_list
