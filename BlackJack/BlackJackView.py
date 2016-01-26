@@ -1,4 +1,29 @@
+
 class View():
+    IMAGE_MAP = {
+        'diamonds': "\u2662",
+        'spade': "\u2664",
+        'clubs': "\u2667",
+        'hearts': "\u2661",
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'five': 5,
+        'six': 6,
+        'seven': 7,
+        'eight': 8,
+        'nine': 9,
+        'ten': 10,
+        'jack': 'Jack',
+        'queen': 'Queen',
+        'king': 'King',
+        'ace': 'Ace',
+        'linebreak': ('=========================================='),
+        'turnchange': "{} it is now your turn!",
+        'gameover': "The game is over, {} you are the winner!",
+
+    }
+
     def __init__(self):
         pass
 
@@ -22,3 +47,6 @@ class View():
             name = input("Please enter name:")
             player_names.append(name)
         return player_names
+viewobject = View()
+# print(viewobject.image_map)
+print (viewobject.IMAGE_MAP['spade'])
