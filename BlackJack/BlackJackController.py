@@ -24,7 +24,7 @@ class Game():
     def spawn_dealer(self):
         dealer = Player('Dealer')
         dealer.dealer = True
-        self.player_object_list.append(dealer)
+        self.player_object_list.insert(0, dealer)
 
     def set_player_hand(self, player, cards):
         '''

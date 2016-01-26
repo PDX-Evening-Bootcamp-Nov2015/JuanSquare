@@ -46,7 +46,7 @@ class BlackJackTestCase(unittest.TestCase):
 
     def test_spawn_dealer(self):
         self.test_game_object.spawn_dealer()
-        self.assertTrue(self.test_game_object.player_object_list[-1].dealer)
+        self.assertTrue(self.test_game_object.player_object_list[0].dealer)
 
     def test_set_hand_val(self):
         self.test_game_object.player_object_list.insert(0, Player('Bill'))
