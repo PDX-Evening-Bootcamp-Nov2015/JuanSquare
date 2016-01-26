@@ -57,11 +57,9 @@ class View():
         while True:
             try:
                 answer = input("Would you like to hit {} ? (Y/N)".format(player.name)).lower()
-                if answer == 'y':
-                    return True
-                elif answer == 'n':
-                    return False
-                else answer == 'exit':
-                    exit()
+                if answer not in ['y', 'n', 'exit']:
+                    raise ValueError("Sorry, we didn't understand your answer.")
+                else:
+                    return answer, player
             except ValueError:
                 print("Please enter either Y, N or exit...")

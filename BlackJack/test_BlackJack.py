@@ -115,4 +115,21 @@ class BlackJackTestCase(unittest.TestCase):
         self.assertEqual(len(player_list[1].current_hand), 2)
         self.assertFalse(player_list[-1].current_hand[0].showing)
 
-## Begin view test functions ===================================
+    def test_hit_prompt(self):
+        hit_prompt = self.test_game_object.hit_prompt
+        expect_true = hit_prompt('y')
+        expect_false = hit_prompt('n')
+        value_error = ''
+        success_exit = ''
+        try:
+            hit_prompt('exit')
+        except SystemExit:
+            success_exit = 'exited'
+        try:
+            hit_prompt(2)
+        except ValueError:
+            value_error = 'value'
+        self.assertTrue(expect_true)
+        self.assertFalse(expect_false)
+        self.assertEqual(success_exit, 'exited')
+        self.assertEqual(value_error, 'value')

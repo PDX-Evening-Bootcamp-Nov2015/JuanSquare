@@ -1,5 +1,6 @@
 from BlackJackModel import Player, Deck, Card
 from BlackJackView import View
+from sys import exit
 
 class Game():
     def __init__(self):
@@ -16,6 +17,16 @@ class Game():
         '''
         pass
 
+    def hit_prompt(self, prompt_output):
+        '''
+        interprets player decision about hitting
+        '''
+        if prompt_output == 'y':
+            return True
+        elif prompt_output == 'n':
+            return False
+        elif prompt_output == 'exit':
+            exit()
 
     def get_players(self, name_players):
         for name in name_players:
