@@ -76,3 +76,9 @@ class View():
                     return answer, player
             except ValueError:
                 print("Please enter either Y, N or exit...")
+
+    def bust_string(self, player):
+        return '{}, you busted!'.format(player)
+
+    def alert_bust(self, bust_string):
+        print(bust_string)
