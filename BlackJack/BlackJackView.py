@@ -75,6 +75,16 @@ class View():
             except ValueError:
                 print("Please enter either Y, N or exit...")
 
+    def show_round_winners(self, winners):
+        for player in winners:
+            if player.dealer == True:
+                print('Dealer WINS :(')
+            else:
+                print(player.name + 'WINS!')
+
+        for player in player_object_list:
+            print('...................................\n' 'Total hands won: ' + player.hands_won)
+
     def bust_string(self, player):
         return '{}, you busted!'.format(player.name)
 
