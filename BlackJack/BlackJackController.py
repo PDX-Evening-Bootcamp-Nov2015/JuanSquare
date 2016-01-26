@@ -104,7 +104,7 @@ class Game():
 
     def discard_cards(self):
         for player in self.player_object_list:
-            player.current_hand = []
+            self.player.append(self.player_object_list.pop())
 
     def deal_cards(self):
         for player in self.player_object_list:
