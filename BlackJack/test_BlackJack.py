@@ -47,22 +47,6 @@ class BlackJackTestCase(unittest.TestCase):
         self.test_game_object.spawn_dealer()
         self.assertTrue(self.test_game_object.player_object_list[-1].dealer)
 
-    def test_set_player_hand(self):
-        '''
-        tests function to set a player's hand
-        '''
-        # check adding to empty hand
-        self.test_game_object.player_object_list.insert(0, Player('Bill'))
-        test_player = self.test_game_object.player_object_list[0]
-        cards_dealt = [Card('spades', 'five'), Card('hearts', 'king')]
-        self.test_game_object.set_player_hand(test_player, cards_dealt)
-        self.assertEqual(test_player.current_hand, cards_dealt)
-        # check adding to existing hand
-        new_card = Card('spades', 'six')
-        self.test_game_object.set_player_hand(test_player, [new_card])
-        cards_dealt.append(new_card)
-        self.assertEqual(test_player.current_hand, cards_dealt)
-
     def test_set_hand_val(self):
         self.test_game_object.player_object_list.insert(0, Player('Bill'))
         test_player = self.test_game_object.player_object_list[0]
@@ -91,18 +75,6 @@ class BlackJackTestCase(unittest.TestCase):
         test_hand = self.player_object_list[self.test_game_object.current_player].current_hand
         self.test_game_object.test_hit_deal()
         self.assertTrue(test_variable, test_hand)
-
-    def test_check_deck_empty(self):
-        '''
-        test function to check if the deck is running low
-        '''
-        # backup deck to prevent side effects on other tests
-        backup = self.test_game_object.deck.cards[:]
-        # test case 1
-        self.test_game_object.deck.cards = []
-        self.assertTrue(self.test_game_object.check_deck_empty())
-        # restore backup to prevent side effects on other tests
-        self.test_game_object.deck.cards = backup
 
     def test_player_turn(self):
         self.current_player = 0

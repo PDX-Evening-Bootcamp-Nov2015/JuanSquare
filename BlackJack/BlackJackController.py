@@ -91,10 +91,6 @@ class Game():
         if dealer.current_hand_value > 16:
             return False
 
-    def check_deck_empty(self):
-        if len(self.deck.cards) < 101:
-            return True
-
     def check_end_round(self):
         if self.player_object_list[self.current_player].dealer:
             return True
