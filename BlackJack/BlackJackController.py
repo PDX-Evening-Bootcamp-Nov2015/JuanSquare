@@ -27,6 +27,8 @@ class Game():
             return False
         elif prompt_output == 'exit':
             exit()
+        else:
+            raise ValueError()
 
     def get_players(self, name_players):
         for name in name_players:
