@@ -1,4 +1,3 @@
-
 class View():
     IMAGE_MAP = {
         'diamonds': "\u2662",
@@ -47,6 +46,3 @@ class View():
             name = input("Please enter name:")
             player_names.append(name)
         return player_names
-viewobject = View()
-# print(viewobject.image_map)
-print (viewobject.IMAGE_MAP['spade'])
