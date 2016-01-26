@@ -1,5 +1,3 @@
-from sys import exit
-
 class View():
     IMAGE_MAP = {
         'diamonds': "\u2662",
@@ -63,16 +61,15 @@ class View():
             player_names.append(name)
         return player_names
 
-    def hit_ask(self, player):
-        '''
-        prompts the player for whether they would like to hit or stay
-        '''
-        while True:
-            try:
-                answer = input("Would you like to hit {} ? (Y/N)".format(player.name)).lower()
-                if answer not in ['y', 'n', 'exit']:
-                    raise ValueError("Sorry, we didn't understand your answer.")
-                else:
-                    return answer, player
-            except ValueError:
-                print("Please enter either Y, N or exit...")
+    def new_hand_prompt():
+    run = 0
+    while run == 0:
+        txt = input("Do you want to play another round? Type yes or no.")
+        if txt.lower() == "yes":
+            return True
+            run = 1
+        elif txt.lower() == "no":
+            return False
+            run = 1
+        else:
+            continue
