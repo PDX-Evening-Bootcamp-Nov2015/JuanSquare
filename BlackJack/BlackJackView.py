@@ -1,5 +1,3 @@
-from sys import exit
-
 class View():
     IMAGE_MAP = {
         'diamonds': "\u2662",
@@ -82,3 +80,16 @@ class View():
 
     def alert_bust(self, bust_string):
         print(bust_string)
+
+    def new_hand_prompt():
+        run = 0
+        while run == 0:
+            txt = input("Do you want to play another round? Type yes or no.")
+            if txt.lower() == "yes":
+                return True
+                run = 1
+            elif txt.lower() == "no":
+                return False
+                run = 1
+            else:
+                continue
