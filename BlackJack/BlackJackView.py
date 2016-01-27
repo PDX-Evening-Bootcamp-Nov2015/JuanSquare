@@ -1,7 +1,7 @@
 class View():
     IMAGE_MAP = {
         'diamonds': "\u2662",
-        'spade': "\u2664",
+        'spades': "\u2664",
         'clubs': "\u2667",
         'hearts': "\u2661",
         'two': 2,
@@ -19,7 +19,7 @@ class View():
         'ace': 'Ace',
         'linebreak': ('=========================================='),
         'turnchange': "{} it is now your turn!",
-        'gameover': "The game is over, {} you are the winner!",
+        'gameover': "The game is over, {} you are a winner!",
         'gameover_dealer': "The game is over, the dealer won!",
         'playerscore': "{}, your score is now {}",
         'noshowcard': "XX"
@@ -29,7 +29,7 @@ class View():
         pass
 
     def show_table(self, player_object_list):
-        print (self.IMAGE_MAP[linebreak])
+        print (self.IMAGE_MAP['linebreak'])
         for player in player_object_list:
             print (player.name)
             for card in player.current_hand:
@@ -37,7 +37,8 @@ class View():
                     print (self.IMAGE_MAP[card.value], self.IMAGE_MAP[card.suit])
                 elif card.showing == False:
                     print ("XX")
-        print (self.IMAGE_MAP[linebreak])
+            print('')
+        print (self.IMAGE_MAP['linebreak'])
 
 
     def number_of_players_prompt(self):
@@ -75,15 +76,15 @@ class View():
             except ValueError:
                 print("Please enter either Y, N or exit...")
 
-    def show_round_winners(self, winners):
+    def show_round_winners(self, winners, player_object_list):
         for player in winners:
             if player.dealer == True:
-                print('Dealer WINS :(')
+                print(self.IMAGE_MAP['gameover_dealer'])
             else:
-                print(player.name + 'WINS!')
+                print(self.IMAGE_MAP['gameover'].format(player.name))
 
         for player in player_object_list:
-            print('...................................\n' 'Total hands won: ' + player.hands_won)
+            print('...................................\n', '{} total hands won: {}'.format(player.name, player.hands_won))
 
     def bust_string(self, player):
         return '{}, you busted!'.format(player.name)
@@ -94,12 +95,14 @@ class View():
     def new_hand_prompt(self):
         run = 0
         while run == 0:
-            txt = input("Do you want to play another round? Type yes or no.")
-            if txt.lower() == "yes":
+            txt = input("Start a new round of Blackjack? (Y/N)")
+            if txt.lower() == "y":
                 return True
                 run = 1
-            elif txt.lower() == "no":
+            elif txt.lower() == "n":
                 return False
                 run = 1
+            elif txt.lower() == "exit":
+                exit()
             else:
                 continue

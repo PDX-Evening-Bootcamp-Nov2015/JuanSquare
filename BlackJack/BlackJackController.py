@@ -15,9 +15,10 @@ class Game():
         '''
         main turn logic, encompasses one entire turn
         '''
+        players = self.player_object_list
+        playing_player = self.player_object_list[self.current_player]
+        turn_over = False
         while self.view.new_hand_prompt():
-            players = self.player_object_list
-            curr_player = self.player_object_list[current_player]
             self.deck.shuffle()
             self.deal_cards()
             for player in players:
@@ -25,26 +26,35 @@ class Game():
             self.view.show_table(players)
             turn_over = False
             while not turn_over:
-                while not curr_player.busted:
-                    if not current_player.dealer and self.hit_prompt(self.view.hit_ask(curr_player)):
-                        self.hit_deal
-                    elif current_player.dealer:
+                print(playing_player.name)
+                while not playing_player.busted:
+                    if playing_player.dealer:
                         if self.dealer_decision():
-                            self.hit_deal
+                            print('dealer decision HIT')
+                            self.hit_deal()
                         else:
+                            print('dealer decision NOHIT')
+                            player.current_hand[0].showing = True
                             turn_over = True
+                            self.view.show_table(players)
+                            break
+                    elif self.hit_prompt(self.view.hit_ask(playing_player)):
+                        self.hit_deal()
+                    else:
+                        self.view.show_table(players)
+                        break
                     self.view.show_table(players)
-                    if self.check_bust():
-                        if current_player.dealer:
+                    self.check_bust()
+                    if playing_player.busted:
+                        if playing_player.dealer:
                             turn_over = True
-                        self.view.alert_bust(self.view.bust_string(curr_player))
+                        self.view.alert_bust(self.view.bust_string(playing_player))
                         break
                 self.player_turn()
+                playing_player = self.player_object_list[self.current_player]
             winners = self.check_round_winner()
             self.discard_cards()
-            self.view.show_round_winners(winners)
-            if not new_hand_prompt():
-                exit()
+            self.view.show_round_winners(winners, players)
 
 
 
@@ -71,7 +81,7 @@ class Game():
     def spawn_dealer(self):
         dealer = Player('Dealer')
         dealer.dealer = True
-        self.player_object_list.insert(0, dealer)
+        self.player_object_list.append(dealer)
 
     def set_hand_val(self, player):
         '''
@@ -117,6 +127,7 @@ class Game():
 
     def hit_deal(self):
         self.player_object_list[self.current_player].current_hand.append(self.deck.cards.pop())
+        self.set_hand_val(self.player_object_list[self.current_player])
 
     def player_turn(self):
         """ next_turn method. Gives each player their turns. selects player turns by going through playerobjectlist."""
@@ -163,6 +174,7 @@ class Game():
                 if player.dealer:
                     showing_card = player.current_hand[0]
                     showing_card.showing = False
+            self.set_hand_val(player)
 
     def check_round_winner(self):
         dealer = self.player_object_list[-1]
