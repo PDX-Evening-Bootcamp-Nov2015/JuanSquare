@@ -147,5 +147,5 @@ class BlackJackTestCase(unittest.TestCase):
 
     def test_bust_string(self):
         player = Player('Evan')
-        output = self.test_game_object.view.bust_string(player.name)
+        output = self.test_game_object.view.bust_string(player)
         self.assertEqual(output, 'Evan, you busted!')

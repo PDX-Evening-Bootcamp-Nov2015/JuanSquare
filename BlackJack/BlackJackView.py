@@ -91,7 +91,7 @@ class View():
     def alert_bust(self, bust_string):
         print(bust_string)
 
-    def new_hand_prompt():
+    def new_hand_prompt(self):
         run = 0
         while run == 0:
             txt = input("Do you want to play another round? Type yes or no.")
