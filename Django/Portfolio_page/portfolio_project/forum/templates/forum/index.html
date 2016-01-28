@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/main.css" media="screen" title="no title" charset="utf-8">
+    <title>May the Forum Be With You</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="fade_in">Feel the Forum</h1>
+        <caption >
+          <p class="fade_in">
+            You have no idea the power of the post button.
+          </p>
+        </caption>
+      </header>
+      <div class="main">
+        <div class="new_post_form">
+          <h2 id="form_reveal">Push New Post</h2>
+          <form class="new_post no_height">
+            <label for="post_title">Post Title</label>
+            <input type="text" name="post_title" id="post_title" value="">
+            <label for="post_text">Post Text</label>
+            <textarea name="post_text" id="post_text" rows="8" cols="40"></textarea>
+            <input type="submit" name="make_post" value="Post" id="make_post">
+          </form>
+        </div>
+        <div class="post_display" id="post_display">
+          <!-- ajax loaded posts go here -->
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>

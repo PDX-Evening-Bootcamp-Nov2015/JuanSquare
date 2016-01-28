@@ -1,0 +1,119 @@
+@import url(https://fonts.googleapis.com/css?family=Carrois+Gothic);
+
+/* style reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* whole page styles */
+body {
+  background: radial-gradient(#747474, #1B5180, #361114, #000000);
+  font-family: "Carrois Gothic", sans-serif;
+  min-height: 200vh;
+}
+/*.wrapper {
+  animation: background_load 10s 1;
+}*/
+
+
+/* header styles */
+header {
+  color: #FEFEFE;
+  text-shadow:
+   -2px -2px 3px #F13122,
+    2px -2px 3px #F13122,
+   -2px  2px 3px #F13122,
+    2px  2px 3px #F13122;
+  text-align: center;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+  transition: text-shadow 0.5s, color 0.5s;
+}
+
+/* form styles for new post input */
+h2 {
+  text-align:center;
+  font-size: 1rem;
+  display: block;
+  margin: 0 auto;
+  width: 10rem;
+}
+#make_post, input, textarea, h2 {
+  background: linear-gradient(125deg, #9F9F9F, #E3E3E3, #eee, #CACACA, #eee);
+  border-radius: 0.3rem;
+  border: 0.2rem groove;
+}
+form {
+  text-align: center;
+  /* These styles used for accordion animation */
+  max-height: 30rem; /* max height must be larger than element */
+  transition: max-height 1s;
+  overflow: hidden;
+}
+form>* {
+  display: block;
+  margin: 0.5rem auto;
+}
+label {
+  color: #FEFEFE;
+  text-shadow:
+   -2px -2px 3px #349EFB,
+    2px -2px 3px #349EFB,
+   -2px  2px 3px #349EFB,
+    2px  2px 3px #349EFB;
+}
+#make_post {
+  margin: 1rem auto;
+}
+input:focus, textarea:focus {
+  box-shadow:
+   -2px -2px 4px #349EFB,
+    2px -2px 4px #349EFB,
+   -2px  2px 4px #349EFB,
+    2px  2px 4px #349EFB;
+  outline: none;
+  transition: box-shadow 0.5s;
+}
+
+/* post area styles */
+.post_display {
+  text-align: center;
+}
+.post {
+  display: inline-block;
+  padding: 1rem;
+  margin: 1rem;
+  background: linear-gradient(125deg, #E9E9E9, #E6EEF8, #D2D2D2, #E6EEF8);
+  border: 0.3rem double;
+  border-radius: 0.3rem;
+}
+
+
+/* footer styles */
+
+/* animation styles */
+.no_glow {
+  color: #000;
+  text-shadow: none;
+  box-shadow: none;
+}
+.no_height {
+  /* second part of accordion animation */
+  max-height: 0;
+}
+.fade_in {
+  animation: fade_in 7s 1;
+}
+/* background color loading fade-in */
+/*@keyframes background_load {
+  0% {background-color: rgba(0,0,0,1);}
+  25% {background-color: rgba(0,0,0,0.9);}
+  50% {background-color: rgba(0,0,0,0.75);}
+  100% {background-color: rgba(0,0,0,0);}
+}*/
+
+@keyframes fade_in {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}

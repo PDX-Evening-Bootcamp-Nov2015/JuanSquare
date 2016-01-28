@@ -1,0 +1,61 @@
+/*
+Color Scheme:
+Background: #DBF8FE - pale blue
+Main: #409EE8 - solid blue
+*/
+/* Style reset */
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
+
+/* Whole page styles */
+* {
+  margin: 0;
+  color: #409EE8;
+  font-family: 'Shadows Into Light', cursive;
+}
+body {
+  background-color: #DBF8FE;
+}
+
+/* Header */
+h1  {
+  font-size: 3rem;
+  text-align: center;
+}
+header {
+  margin-top: 2rem;
+}
+
+/* Body Styles */
+  /* Quote Area */
+.quote_box {
+  width: 60vh;
+  min-height: 3rem;
+  background-color: white;
+  margin: 1rem auto;
+  border: 2px dotted #bef3fd;
+  border-radius: 1rem;
+  text-align: center;
+}
+.quote_box p {
+  padding: 1rem;
+}
+
+  /* Quote Button */
+button {
+  display: block;
+  margin: 0 auto;
+  width: 8rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 2px dashed #409EE8;
+  background-color: #bef3fd;
+}
+button:focus {
+  outline: none;
+}
+/* Footer */
+footer {
+  margin-top: 10vh;
+  text-align: center;
+  font-size: 0.8rem;
+}
