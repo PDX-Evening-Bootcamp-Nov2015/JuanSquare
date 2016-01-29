@@ -30,6 +30,8 @@ urlpatterns = [
     url(r'^angry_dice/$', angry_dice.views.main),
     url(r'^forum/$', forum.views.main),
     url(r'^JavaPic/$', JavaPic.views.javapic_main),
+    url(r'^JavaPic/Join/$', JavaPic.views.join),
+    url(r'^JavaPic/Gallery/', JavaPic.views.gallery),
     url(r'^JavaPic_Jquery/$', JavaPic_Jquery.views.main),
     url(r'^random_quote/$', random_quote.views.main),
 ]

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>javapic</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/static/JavaPic/css/style.css" />
 </head>
 <body>
 
@@ -11,6 +11,7 @@
     <section class="signup">
         <h2>join us</h2>
         <form id="signup" method="post">
+          {% csrf_token %}
             <label for="name">name</label>
             <input type="text" name="name" placeholder="name" required/>
             <label for="username">username</label>
@@ -22,6 +23,6 @@
         </form>
     </section>
 </main>
-    <script type="text/javascript" src="js/join.js"></script>
+    <script type="text/javascript" src="/static/JavaPic/js/join.js"></script>
 </body>
 </html>

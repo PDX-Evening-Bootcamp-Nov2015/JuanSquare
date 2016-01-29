@@ -29,7 +29,7 @@ function imgPath(imgNum){
     imgNum = String(imgNum);
   }
   // add properly padded number to path and return
-  return 'images/pdxcg_' + imgNum + '.jpg';
+  return '/static/JavaPic/images/pdxcg_' + imgNum + '.jpg';
 }
 
 // function to generate new li containing image

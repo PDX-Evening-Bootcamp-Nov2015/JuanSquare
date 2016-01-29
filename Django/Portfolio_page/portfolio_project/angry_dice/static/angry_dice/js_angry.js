@@ -136,7 +136,7 @@ function Game(){
       // show this is a die
       newImg.classList.add('die');
       // select correct image
-      newImg.src = dieVal + '.png';
+      newImg.src = '/static/angry_dice/' + dieVal + '.png';
       // which die are we talking about?!
       newImg.id = 'die' + (i);
       if (held) {
