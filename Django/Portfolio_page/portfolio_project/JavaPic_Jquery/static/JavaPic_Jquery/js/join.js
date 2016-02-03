@@ -91,7 +91,7 @@ function validateAll(event) {
   // pass along username to next page if no validation issues
   if (!errorCount) {
     var username = $('input[name=username]').val(); // retreive username
-    $form.attr('action', 'gallery.html?username=' + username);
+    $form.attr('action', 'Gallery/?username=' + username);
   } else {
     event.preventDefault(); // prevent page reload if validation errors
   }

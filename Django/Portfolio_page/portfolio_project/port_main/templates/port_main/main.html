@@ -1,13 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Juan Espinet's Portolio</title>
-  </head>
-  <body>
-    <h1>Header</h1>
+{% extends 'port_main/base.html' %}
+{% load staticfiles %}
+  {% block page_title %}Juan Espinet's Portfolio{% endblock %}
+  {% block content %}
+    <h1>Juan Espinet</h1>
+    <caption>Web Developer</caption>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#links">Links</a></li>
+      </ul>
+    </nav>
+    <hr>
+    <div class="about" id="about">
+      <h2>Who Am I?</h2>
+      <p>
+        I am a person. I write code.
+      </p>
+    </div>
+    <div class="projects" id="projects">
+      <ul>
+        {% for project in project_list %}
+        <li>
+          <a href="{{ project.url }}">{{ project.name }}</a> -
+          <caption>{{ project.tagline }}</caption>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     <p>
       Content!
     </p>
-  </body>
-</html>
+  {% endblock %}
+  {% block javascript %}
+  {% static "port_main/main.js" %}
+  {% endblock %}

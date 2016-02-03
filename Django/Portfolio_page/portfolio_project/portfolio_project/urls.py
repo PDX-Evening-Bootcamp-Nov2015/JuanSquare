@@ -27,11 +27,13 @@ import random_quote.views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', main_views.main),
-    url(r'^angry_dice/$', angry_dice.views.main),
+    url(r'^angry_dice/$', angry_dice.views.main, name='Angry Dice'),
     url(r'^forum/$', forum.views.main),
     url(r'^JavaPic/$', JavaPic.views.javapic_main),
     url(r'^JavaPic/Join/$', JavaPic.views.join),
     url(r'^JavaPic/Gallery/', JavaPic.views.gallery),
     url(r'^JavaPic_Jquery/$', JavaPic_Jquery.views.main),
+    url(r'^JavaPic_Jquery/Join$', JavaPic_Jquery.views.join),
+    url(r'^JavaPic_Jquery/Gallery/', JavaPic_Jquery.views.gallery),
     url(r'^random_quote/$', random_quote.views.main),
 ]

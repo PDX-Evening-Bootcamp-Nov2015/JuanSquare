@@ -19,7 +19,7 @@ function imgPath(imgNum){
     imgNum = '0' + imgNum;
   }
   // add properly padded number to path and return
-  return 'images/pdxcg_' + imgNum + '.jpg';
+  return '/static/JavaPic_Jquery/images/pdxcg_' + imgNum + '.jpg';
 }
 
 /* function to generate new li containing image */
@@ -35,31 +35,6 @@ function genImg(imgNum){
   });
   $newLi.append($newImg); // li wrapper needed for styling
   return $newLi;
-}
-
-/* function to get number of images */
-function getNumImgs() {
-  var i = 1, // counter variable for do while
-      imgFound = false; // stop condition for image count
-  do {
-    // check at least once for images
-    var url = imgPath(i);
-    $.ajax({
-      // ajax call checks if an image exists with each path
-      url : url,
-      success : function(){
-        imgFound = true;
-        i += 1;
-      },
-      error : function(){
-        imgFound = false;
-        if (i === 1) {
-          i = 60; // sets a default number of images if no ajax calls succeed
-        }
-      }
-    })
-  } while (imgFound) // stop when no more images found
-  return i;
 }
 
 /* function to populate gallery */
@@ -97,23 +72,21 @@ function popUName(uName) {
 
 /* function to select clicked image and display in lightbox */
 function imgClick(event) {
+  event.stopPropagation();
   var clickTargetPath = $(event.target).attr('src'), // find the click target
       $lightbox = $('#image_show'),
       $boxImage = $('#image_show img');
-  // check to see if lightbox is already displayed
-  if ($lightbox.hasClass('display_img')) {
-      closeLightbox();
-      return
-  }
+  // change lightbox image targete
+  $boxImage.attr('src', clickTargetPath);
+  // display the lightbox
+  console.log('opening lightbox');
+  $lightbox.addClass('display_img');
+  $lightbox.removeClass('display_none');
   // attach a click listener for closing the lightbox
   $(window).click(closeLightbox);
   $boxImage.click(function(evt){
     evt.stopPropagation() // ignore clicks on the lightbox image
   })
-  // change lightbox image targete
-  $boxImage.attr('src', clickTargetPath);
-  // display the lightbox
-  $lightbox.addClass('display_img').removeClass('display_none');
 }
 
 /* function to close lightbox on a click elsewhere
@@ -122,6 +95,7 @@ function imgClick(event) {
 function closeLightbox(event) {
   var $lightbox = $('#image_show'),
       $boxImage = $('#image_show img');
+  console.log('closing lightbox');
   event.preventDefault(); // don't want to follow any links by accident
   // unbind stopPropagation to prevent side effects
   $boxImage.off('click');
@@ -137,8 +111,8 @@ $(function(){
       - populate images
       - attach event listeners to images */
   var userName = getUserName(),
-      numImgs = getNumImgs();
+      numImgs = 60;
   popUName(userName);
   popGallery(numImgs);
-  $('#gallery').on('click', 'img', imgClick);
+  $('#gallery img').click(imgClick);
 })
